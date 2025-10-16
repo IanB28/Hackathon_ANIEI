@@ -12,8 +12,12 @@ import {
 } from '../services/CalendarService';
 import { MOOD_LEVELS } from '../services/moodService';
 import { auth } from '../firebaseConfig';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const Calendario: React.FC = () => {
+  const history = useHistory();
+  const location = useLocation<{ refreshCalendar?: boolean; year?: number; month?: number }>();
+  
   const [currentDate, setCurrentDate] = useState(new Date());
   const [viewMode, setViewMode] = useState<'W' | 'M' | 'P' | 'S'>('M');
   const [showChart, setShowChart] = useState(false);
@@ -52,6 +56,26 @@ const Calendario: React.FC = () => {
       cargarEntradas();
     }
   }, [currentDate, viewMode, userReady]);
+
+  // Refrescar cuando se vuelve del registro
+  useEffect(() => {
+    if (location.state?.refreshCalendar && userReady) {
+      console.log('🔄 Refrescando calendario después de registro');
+      
+      // Si viene con año y mes específicos, restaurar esa vista
+      if (location.state.year !== undefined && location.state.month !== undefined) {
+        setCurrentDate(new Date(location.state.year, location.state.month, 1));
+      }
+      
+      cargarEntradas();
+      
+      // Limpiar el estado para evitar refrescos innecesarios
+      history.replace({
+        pathname: '/calendario',
+        state: {}
+      });
+    }
+  }, [location.state, userReady]);
 
   const cargarEntradas = async () => {
     if (!userReady) {
@@ -152,22 +176,60 @@ const Calendario: React.FC = () => {
       return;
     }
 
+    const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    selectedDate.setHours(0, 0, 0, 0);
+
+    // No permitir registros en días futuros
+    if (selectedDate > today) {
+      console.log('❌ No se pueden registrar días futuros');
+      return;
+    }
+
     setSelectedDay(day);
     setLoading(true);
     
     try {
+      // Verificar si ya existe un registro para este día
       const entry = await obtenerEntradaDia(
         currentDate.getFullYear(),
         currentDate.getMonth(),
         day
       );
       
-      setSelectedEntry(entry);
-      setShowDayModal(true);
+      if (entry) {
+        // Si YA HAY registro, mostrar el modal con la información
+        console.log('✅ Día con registro, mostrando modal');
+        setSelectedEntry(entry);
+        setShowDayModal(true);
+      } else {
+        // Si NO HAY registro, redirigir a Home para registrar
+        console.log('📝 Día sin registro, redirigiendo a Home');
+        history.push({
+          pathname: '/home',
+          state: {
+            selectedDate: selectedDate.toISOString(),
+            isHistoricalEntry: selectedDate < today,
+            year: currentDate.getFullYear(),
+            month: currentDate.getMonth(),
+            day: day
+          }
+        });
+      }
     } catch (error) {
       console.error('Error al cargar entrada del día:', error);
-      setSelectedEntry(null);
-      setShowDayModal(true); // Mostrar modal vacío
+      // Si hay error al cargar, asumir que no hay registro
+      history.push({
+        pathname: '/home',
+        state: {
+          selectedDate: selectedDate.toISOString(),
+          isHistoricalEntry: selectedDate < today,
+          year: currentDate.getFullYear(),
+          month: currentDate.getMonth(),
+          day: day
+        }
+      });
     } finally {
       setLoading(false);
     }
@@ -212,7 +274,7 @@ const Calendario: React.FC = () => {
           strokeWidth="2"
         />
         
-        {/* Labels del eje Y con colores de MOOD_LEVELS */}
+        {/* Labels del eje Y con imágenes de MOOD_LEVELS */}
         {MOOD_LEVELS.slice().reverse().map((level, index) => {
           const y = padding + (chartHeight / 6) * index;
           return (
@@ -226,16 +288,15 @@ const Calendario: React.FC = () => {
                 strokeWidth="1" 
                 strokeDasharray="5,5"
               />
-              <text 
-                x={padding - 10} 
-                y={y + 5} 
-                fill={level.color} 
-                fontSize="12" 
-                fontWeight="bold"
-                textAnchor="end"
-              >
-                {level.emoji}
-              </text>
+              {/* Imagen de emoción en lugar de emoji */}
+              <image 
+                href={getEmotionImage(level.label)}
+                x={padding - 35}
+                y={y - 15}
+                width="30"
+                height="30"
+                style={{ filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))' }}
+              />
             </g>
           );
         })}
@@ -249,6 +310,21 @@ const Calendario: React.FC = () => {
           stroke="rgba(255, 255, 255, 0.3)" 
           strokeWidth="2"
         />
+
+        {/* Línea de tendencia */}
+        {filteredEntries.length > 1 && (
+          <polyline
+            points={filteredEntries.map((entry, index) => {
+              const x = padding + (chartWidth / (filteredEntries.length - 1 || 1)) * index;
+              const y = padding + (chartHeight - (entry.moodValue * chartHeight / 6));
+              return `${x},${y}`;
+            }).join(' ')}
+            fill="none"
+            stroke="rgba(255, 255, 255, 0.3)"
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+        )}
 
         {/* Puntos de datos */}
         {filteredEntries.map((entry, index) => {
@@ -283,6 +359,20 @@ const Calendario: React.FC = () => {
     );
   };
 
+  const getEmotionImage = (moodLabel: string): string => {
+    const imageMap: { [key: string]: string } = {
+      'Muy incómodo': '/assets/emotions/muyincomodo.png',
+      'Incómodo': '/assets/emotions/incomodo.png',
+      'Levemente incómodo': '/assets/emotions/levementeincomodo.png',
+      'Neutral': '/assets/emotions/neutral.png',
+      'Levemente positivo': '/assets/emotions/levementepositivo.png',
+      'Positivo': '/assets/emotions/positivo.png',
+      'Muy positivo': '/assets/emotions/muypositivo.png'
+    };
+
+    return imageMap[moodLabel] || '/assets/emotions/neutral.png';
+  };
+
   const renderEmotionCircle = () => {
     if (!selectedEntry) return null;
 
@@ -303,15 +393,15 @@ const Calendario: React.FC = () => {
           <circle cx="100" cy="100" r="40" fill="url(#emotionGradient)" />
           <circle cx="100" cy="100" r="15" fill={selectedEntry.moodColor} />
           
-          {/* Emoji en el centro */}
-          <text 
-            x="100" 
-            y="115" 
-            fontSize="50" 
-            textAnchor="middle"
-          >
-            {selectedEntry.emoji}
-          </text>
+          {/* Imagen de emoción en el centro */}
+          <image 
+            href={getEmotionImage(selectedEntry.moodLabel)}
+            x="50" 
+            y="50" 
+            width="100" 
+            height="100"
+            style={{ filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3))' }}
+          />
         </svg>
       </div>
     );
@@ -450,11 +540,21 @@ const Calendario: React.FC = () => {
         </IonCard>
 
         <div className="bottom-actions">
-          <IonButton expand="block" className="register-button" onClick={() => {
-            const today = new Date().getDate();
-            handleDayClick(today);
-          }}>
-            📅 Registrar Día
+          <IonButton 
+            expand="block" 
+            className="register-button" 
+            onClick={() => {
+              const today = new Date();
+              history.push({
+                pathname: '/home',
+                state: {
+                  selectedDate: today.toISOString(),
+                  isHistoricalEntry: false
+                }
+              });
+            }}
+          >
+            📅 Registrar Hoy
           </IonButton>
         </div>
 
@@ -515,11 +615,27 @@ const Calendario: React.FC = () => {
                   {selectedEntry.moodEntries.map((moodEntry, index) => (
                     <div key={index} className="day-modal-stat-item">
                       <div className="day-modal-stat-icon" style={{ backgroundColor: moodEntry.moodColor }}>
-                        {MOOD_LEVELS.find(m => m.value === moodEntry.moodValue)?.emoji}
+                        <img 
+                          src={getEmotionImage(moodEntry.moodLabel)}
+                          alt={moodEntry.moodLabel}
+                          style={{ 
+                            width: '100%', 
+                            height: '100%', 
+                            objectFit: 'contain',
+                            filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                          }}
+                        />
                       </div>
                       <div className="day-modal-stat-info">
-                        <div className="day-modal-stat-value">{moodEntry.hora}</div>
-                        <div className="day-modal-stat-label">{moodEntry.moodLabel} - {moodEntry.momentoDia}</div>
+                        {/* ✅ Mostrar hora solo si es día actual */}
+                        {moodEntry.esDiaActual && (
+                          <div className="day-modal-stat-value">{moodEntry.hora}</div>
+                        )}
+                        {/* ✅ Mostrar momento del día solo si es día actual */}
+                        <div className="day-modal-stat-label">
+                          {moodEntry.moodLabel}
+                          {moodEntry.esDiaActual && ` - ${moodEntry.momentoDia}`}
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -569,7 +685,16 @@ const Calendario: React.FC = () => {
                 return (
                   <div key={level.value} className="chart-stat-item">
                     <div className="chart-stat-icon" style={{ backgroundColor: level.color }}>
-                      {level.emoji}
+                      <img 
+                        src={getEmotionImage(level.label)}
+                        alt={level.label}
+                        style={{ 
+                          width: '100%', 
+                          height: '100%', 
+                          objectFit: 'contain',
+                          filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                        }}
+                      />
                     </div>
                     <div className="chart-stat-info">
                       <div className="chart-stat-value">{count}</div>

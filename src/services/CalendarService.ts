@@ -58,7 +58,6 @@ export const obtenerEntradasCalendario = async (
     const inicioString = fechaInicio.toISOString().split('T')[0];
     const finString = fechaFin.toISOString().split('T')[0];
 
-    // Query MUY simple: solo userId
     const q = query(
       collection(db, "moodEntries"),
       where("userId", "==", user.uid)
@@ -68,25 +67,23 @@ export const obtenerEntradasCalendario = async (
     const querySnapshot = await getDocs(q);
     console.log('   - Documentos encontrados (total):', querySnapshot.size);
 
-    // Filtrar TODO en el cliente
     const entriesPorDia: { [key: string]: MoodEntry[] } = {};
     let documentosFiltrados = 0;
 
     querySnapshot.forEach((doc) => {
       const data = doc.data();
       
-      // Filtros en el cliente
       if (!data.dia) {
         console.log('   ⚠️ Documento sin campo "dia":', doc.id);
         return;
       }
 
       if (data.dia < inicioString || data.dia > finString) {
-        return; // Fuera del rango
+        return;
       }
       
       if (!data.completado) {
-        return; // No completado
+        return;
       }
 
       documentosFiltrados++;
@@ -97,7 +94,8 @@ export const obtenerEntradasCalendario = async (
         fecha: data.fecha?.toDate() || new Date(),
         dia: data.dia,
         hora: data.hora || '00:00',
-        momentoDia: data.momentoDia || 'No especificado',
+        momentoDia: data.momentoDia || 'mañana',
+        esDiaActual: data.esDiaActual || false, // ✅ Leer nuevo campo
         moodValue: data.moodValue ?? 3,
         moodLabel: data.moodLabel || 'Neutral',
         moodColor: data.moodColor || '#10B981',
@@ -119,7 +117,6 @@ export const obtenerEntradasCalendario = async (
 
     console.log('   - Documentos filtrados:', documentosFiltrados);
 
-    // Convertir a CalendarEntry[]
     const calendarEntries: CalendarEntry[] = Object.entries(entriesPorDia)
       .sort((a, b) => a[0].localeCompare(b[0]))
       .map(([dia, moodEntries]) => {
@@ -181,7 +178,6 @@ export const obtenerEntradaDia = async (
     console.log('🔧 obtenerEntradaDia:', diaString);
     console.log('   - Usuario ID:', user.uid);
 
-    // Query simple: solo userId
     const q = query(
       collection(db, "moodEntries"),
       where("userId", "==", user.uid)
@@ -197,7 +193,6 @@ export const obtenerEntradaDia = async (
 
     const moodEntries: MoodEntry[] = [];
 
-    // Filtrar en el cliente
     querySnapshot.forEach((doc) => {
       const data = doc.data();
       
@@ -210,7 +205,8 @@ export const obtenerEntradaDia = async (
         fecha: data.fecha?.toDate() || new Date(),
         dia: data.dia,
         hora: data.hora || '00:00',
-        momentoDia: data.momentoDia || 'No especificado',
+        momentoDia: data.momentoDia || 'mañana',
+        esDiaActual: data.esDiaActual || false, // ✅ Leer nuevo campo
         moodValue: data.moodValue ?? 3,
         moodLabel: data.moodLabel || 'Neutral',
         moodColor: data.moodColor || '#10B981',

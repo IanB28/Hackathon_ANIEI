@@ -335,6 +335,7 @@
 }
 
 .chart-stats {
+  color: #ffffff;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -364,6 +365,16 @@
   justify-content: center;
   font-size: 28px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  padding: 5px;
+  overflow: hidden;
+}
+
+.chart-stat-icon img {
+  transition: transform 0.3s ease;
+}
+
+.chart-stat-icon:hover img {
+  transform: scale(1.1);
 }
 
 .chart-stat-info {
@@ -373,15 +384,21 @@
 .chart-stat-value {
   font-size: 24px;
   font-weight: bold;
-  color: #fff;
+  color: #ffffff !important;
   margin: 0 0 4px 0;
 }
 
 .chart-stat-label {
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.7);
+  color: #ffffff !important;
   margin: 0;
   font-weight: 500;
+  opacity: 0.9;
+}
+
+/* Mejorar visualización de imágenes en SVG de la gráfica */
+.emotion-chart image {
+  transition: opacity 0.3s ease;
 }
 
 /* Day Modal Styles - Matching Chart Modal Design */
@@ -476,6 +493,23 @@
   filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.3));
 }
 
+/* Mejorar visualización de imagen en SVG */
+.emotion-circle-svg image {
+  transform-origin: center;
+  animation: emotionAppear 0.5s ease-out;
+}
+
+@keyframes emotionAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .day-modal-emotion-label {
   color: #ffffff;
   font-size: 28px;
@@ -514,6 +548,16 @@
   justify-content: center;
   font-size: 28px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  padding: 5px;
+  overflow: hidden;
+}
+
+.day-modal-stat-icon img {
+  transition: transform 0.3s ease;
+}
+
+.day-modal-stat-icon:hover img {
+  transform: scale(1.1);
 }
 
 .day-modal-stat-info {
