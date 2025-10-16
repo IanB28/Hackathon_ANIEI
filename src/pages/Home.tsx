@@ -73,16 +73,26 @@ export default function Home() {
     year?: number;
     month?: number;
     day?: number;
-  }>({
-    year: undefined,
-    month: undefined,
-    day: undefined
-  });
+  }>({});
   
   const history = useHistory();
   const location = useLocation<LocationState>();
 
   const currentEmotion = emotionStates[sliderValue];
+
+  // Resetear estado cuando NO hay datos del calendario
+  useEffect(() => {
+    const hasCalendarData = location.state?.selectedDate || 
+                           location.state?.year !== undefined || 
+                           location.state?.month !== undefined;
+    
+    if (!hasCalendarData) {
+      console.log('🔄 Reseteando estado - navegación desde tabs');
+      setSelectedDate(new Date());
+      setIsHistoricalEntry(false);
+      setCalendarContext({});
+    }
+  }, [location.pathname]);
 
   // Cargar fecha seleccionada desde el calendario
   useEffect(() => {
@@ -91,7 +101,6 @@ export default function Home() {
       setSelectedDate(date);
       setIsHistoricalEntry(location.state.isHistoricalEntry || false);
       
-      // Guardar contexto del calendario para regresar
       if (location.state.year !== undefined && 
           location.state.month !== undefined && 
           location.state.day !== undefined) {
@@ -104,7 +113,7 @@ export default function Home() {
       
       setShowToast(true);
     }
-  }, [location.state]);
+  }, [location.state?.selectedDate]);
 
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(e.target.value);
@@ -127,7 +136,7 @@ export default function Home() {
         emotionImage: currentEmotion.image,
         selectedDate: selectedDate.toISOString(),
         isHistoricalEntry: isHistoricalEntry,
-        calendarContext: calendarContext // Pasar contexto
+        calendarContext: calendarContext
       }
     });
   };
@@ -156,7 +165,6 @@ export default function Home() {
     <IonPage>
       <IonContent className="main-content">
         <div className="content-wrapper">
-          {/* Botón de perfil flotante */}
           <IonButton 
             fill="clear" 
             className="profile-button-floating"
@@ -174,8 +182,7 @@ export default function Home() {
               }
             </p>
             
-            {/* Indicador de fecha seleccionada */}
-            {(isHistoricalEntry || location.state?.selectedDate) && (
+            {isHistoricalEntry && (
               <div className="date-indicator">
                 <IonIcon icon={calendarOutline} />
                 <span>{formatSelectedDate()}</span>

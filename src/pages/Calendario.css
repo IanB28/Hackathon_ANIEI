@@ -77,6 +77,68 @@
   font-weight: 500;
 }
 
+/* ✅ Mover stats-section ANTES del calendario */
+.stats-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: rgba(48, 73, 112, 0.3);
+  border-radius: 12px;
+  margin: 10px 0 15px 0; /* Cambiado margen para estar arriba del calendario */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  order: -1; /* Forzar que aparezca antes en el orden visual si es necesario */
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: #fff;
+  flex: 1;
+}
+
+.stat-icon {
+  font-size: 32px;
+  color: #fff;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.chart-button-circle {
+  width: 56px;
+  height: 56px;
+  --border-radius: 50%;
+  --background: linear-gradient(135deg, #304970 0%, #354A6D 100%);
+  --background-hover: linear-gradient(135deg, #354A6D 0%, #304970 100%);
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --padding-start: 0;
+  --padding-end: 0;
+  margin: 0;
+  transition: all 0.3s ease;
+}
+
+.chart-button-circle:hover {
+  transform: scale(1.1);
+  --box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.chart-button-circle ion-icon {
+  font-size: 28px;
+  color: #fff;
+}
+
 .calendar-card {
   background: rgba(48, 73, 112, 0.3);
   margin: 10px 0;
@@ -172,66 +234,6 @@
   height: 20px;
   border-radius: 50%;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-}
-
-.stats-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  background: rgba(48, 73, 112, 0.3);
-  border-radius: 12px;
-  margin: 15px 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.stat-item {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  color: #fff;
-  flex: 1;
-}
-
-.stat-icon {
-  font-size: 32px;
-  color: #fff;
-}
-
-.stat-value {
-  font-size: 24px;
-  font-weight: bold;
-  color: #fff;
-}
-
-.stat-label {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.chart-button-circle {
-  width: 56px;
-  height: 56px;
-  --border-radius: 50%;
-  --background: linear-gradient(135deg, #304970 0%, #354A6D 100%);
-  --background-hover: linear-gradient(135deg, #354A6D 0%, #304970 100%);
-  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  --padding-start: 0;
-  --padding-end: 0;
-  margin: 0;
-  transition: all 0.3s ease;
-}
-
-.chart-button-circle:hover {
-  transform: scale(1.1);
-  --box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-}
-
-.chart-button-circle ion-icon {
-  font-size: 28px;
-  color: #fff;
 }
 
 .bottom-actions {

@@ -1,0 +1,37 @@
+import { IonReactRouter } from '@ionic/react-router';
+import { IonRouterOutlet, IonTabBar, IonTabButton, IonIcon, IonLabel } from '@ionic/react';
+import { home, calendar, book } from 'ionicons/icons';
+import { Redirect, Route } from 'react-router-dom';
+
+// ✅ Componente wrapper para Home que siempre resetea
+const HomeWrapper: React.FC = () => {
+  const history = useHistory();
+  
+  useEffect(() => {
+    // Siempre limpiar el estado al montar desde tabs
+    history.replace({
+      pathname: '/home',
+      state: {
+        fromNavigation: true
+      }
+    });
+  }, []);
+  
+  return <Home />;
+};
+
+// En tus rutas:
+<IonRouterOutlet>
+  <Route exact path="/home" component={HomeWrapper} />
+  <Route exact path="/calendario" component={Calendario} />
+  {/* ... otras rutas */}
+</IonRouterOutlet>
+
+// En tu IonTabBar:
+<IonTabBar slot="bottom">
+  <IonTabButton tab="home" href="/home">
+    <IonIcon icon={home} />
+    <IonLabel>Inicio</IonLabel>
+  </IonTabButton>
+  {/* ... otros tabs */}
+</IonTabBar>

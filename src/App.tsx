@@ -1,12 +1,9 @@
 import { IonApp, IonRouterOutlet, IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { Route } from 'react-router-dom';
+import { Route, useHistory } from 'react-router-dom';
 import { homeOutline, home, calendarOutline, calendar, bookOutline, book } from 'ionicons/icons';
 import { useLocation } from 'react-router-dom';
 
-
-
-import {  ellipse, square, triangle } from "ionicons/icons";
 import Home from "./pages/Home";
 import Calendario from "./pages/Calendario";
 import Estudio from "./pages/Estudio";
@@ -14,7 +11,6 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Perfil from "./pages/Perfil";
 import Journaling from "./pages/Journaling"; 
-
 import MoodTracker from "./pages/MoodTracker";
 
 /* Core CSS required for Ionic components to work properly */
@@ -42,29 +38,55 @@ setupIonicReact({
 
 const TabBarContent: React.FC = () => {
   const location = useLocation();
+  const history = useHistory();
   
+  // ✅ Función para navegar a Home y resetear estado
+  const navigateToHome = (e: CustomEvent) => {
+    e.preventDefault();
+    console.log('🏠 Navegando a Home desde TabBar - Reseteando estado');
+    history.push({
+      pathname: '/home',
+      state: {
+        fromNavigation: true
+      }
+    });
+  };
+
+  // ✅ Función para navegar a Calendario
+  const navigateToCalendario = (e: CustomEvent) => {
+    e.preventDefault();
+    console.log('📅 Navegando a Calendario desde TabBar');
+    history.push('/calendario');
+  };
+
+  // ✅ Función para navegar a Estudio
+  const navigateToEstudio = (e: CustomEvent) => {
+    e.preventDefault();
+    console.log('📚 Navegando a Estudio desde TabBar');
+    history.push('/estudio');
+  };
+
   return (
     <IonTabBar slot="bottom">
-      <IonTabButton tab="home" href="/home">
+      {/* ✅ Home con reseteo de estado */}
+      <IonTabButton tab="home" onClick={navigateToHome}>
         <IonIcon 
-          ios={homeOutline} 
-          md={homeOutline}
-          icon={location.pathname === '/home' || location.pathname === '/' ? home : homeOutline} 
+          icon={location.pathname === '/home' ? home : homeOutline} 
         />
         <IonLabel>Inicio</IonLabel>
       </IonTabButton>
-      <IonTabButton tab="calendario" href="/calendario">
+      
+      {/* ✅ Calendario con navegación programática */}
+      <IonTabButton tab="calendario" onClick={navigateToCalendario}>
         <IonIcon 
-          ios={calendarOutline}
-          md={calendarOutline}
           icon={location.pathname === '/calendario' ? calendar : calendarOutline} 
         />
         <IonLabel>Calendario</IonLabel>
       </IonTabButton>
-      <IonTabButton tab="estudio" href="/estudio">
+      
+      {/* ✅ Estudio con navegación programática */}
+      <IonTabButton tab="estudio" onClick={navigateToEstudio}>
         <IonIcon 
-          ios={bookOutline}
-          md={bookOutline}
           icon={location.pathname === '/estudio' ? book : bookOutline} 
         />
         <IonLabel>Estudio</IonLabel>
@@ -84,26 +106,25 @@ const App: React.FC = () => (
           <Route exact path="/register">
             <Register />
           </Route>
-          <Route exact path="/home">
+          <Route exact path="/home" key="home">
             <Home />
           </Route>
           <Route exact path="/perfil">
             <Perfil />
           </Route>
-          <Route exact path="/calendario">
+          <Route exact path="/calendario" key="calendario">
             <Calendario />
           </Route>
-          <Route exact path="/estudio">
+          <Route exact path="/estudio" key="estudio">
             <Estudio />
           </Route>
-           
-           <Route exact path="/moodtracker">
+          <Route exact path="/moodtracker">
             <MoodTracker />
           </Route>
           <Route exact path="/">
             <Home />
           </Route>
-           <Route exact path="/journaling">
+          <Route exact path="/journaling">
             <Journaling />
           </Route>
         </IonRouterOutlet>

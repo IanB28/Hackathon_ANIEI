@@ -1,6 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { IonContent, IonPage, IonSegment, IonSegmentButton, IonLabel, IonIcon, IonCard, IonCardContent, IonButton, IonModal, IonHeader, IonToolbar, IonSpinner } from '@ionic/react';
-import { arrowBack, arrowForward, calendarOutline, close, barChartOutline } from 'ionicons/icons';
+import { 
+  IonContent, 
+  IonPage, 
+  IonSegment, 
+  IonSegmentButton, 
+  IonLabel, 
+  IonIcon, 
+  IonCard, 
+  IonCardContent, 
+  IonButton, 
+  IonModal, 
+  IonHeader, 
+  IonToolbar, 
+  IonSpinner 
+} from '@ionic/react';
+import { 
+  arrowBack, 
+  arrowForward, 
+  close, 
+  barChartOutline, 
+  calendarOutline  // ✅ Agregado import faltante
+} from 'ionicons/icons';
 import './Calendario.css';
 import { 
   obtenerEntradasMes, 
@@ -40,7 +60,6 @@ const Calendario: React.FC = () => {
     'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
   ];
 
-  // Esperar a que el usuario esté autenticado
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       console.log('👤 Auth state changed:', user?.uid || 'NO USER');
@@ -50,26 +69,22 @@ const Calendario: React.FC = () => {
     return () => unsubscribe();
   }, []);
 
-  // Cargar entradas solo cuando el usuario esté listo
   useEffect(() => {
     if (userReady) {
       cargarEntradas();
     }
   }, [currentDate, viewMode, userReady]);
 
-  // Refrescar cuando se vuelve del registro
   useEffect(() => {
     if (location.state?.refreshCalendar && userReady) {
       console.log('🔄 Refrescando calendario después de registro');
       
-      // Si viene con año y mes específicos, restaurar esa vista
       if (location.state.year !== undefined && location.state.month !== undefined) {
         setCurrentDate(new Date(location.state.year, location.state.month, 1));
       }
       
       cargarEntradas();
       
-      // Limpiar el estado para evitar refrescos innecesarios
       history.replace({
         pathname: '/calendario',
         state: {}
@@ -108,10 +123,24 @@ const Calendario: React.FC = () => {
       setEntries(data);
     } catch (error) {
       console.error('Error al cargar entradas:', error);
-      setEntries([]); // Limpiar entries en caso de error
+      setEntries([]);
     } finally {
       setLoading(false);
     }
+  };
+
+  const getEmotionImage = (moodLabel: string): string => {
+    const imageMap: { [key: string]: string } = {
+      'Muy incómodo': '/assets/emotions/muyincomodo.png',
+      'Incómodo': '/assets/emotions/incomodo.png',
+      'Levemente incómodo': '/assets/emotions/levementeincomodo.png',
+      'Neutral': '/assets/emotions/neutral.png',
+      'Levemente positivo': '/assets/emotions/levementepositivo.png',
+      'Positivo': '/assets/emotions/positivo.png',
+      'Muy positivo': '/assets/emotions/muypositivo.png'
+    };
+
+    return imageMap[moodLabel] || '/assets/emotions/neutral.png';
   };
 
   const getFilteredEntries = () => {
@@ -170,6 +199,14 @@ const Calendario: React.FC = () => {
            currentDate.getFullYear() === today.getFullYear();
   };
 
+  const getSelectedDate = () => {
+    if (!selectedDay) return '';
+    const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), selectedDay);
+    const dayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    const monthNames = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+    return `${dayNames[date.getDay()]}, ${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+  };
+
   const handleDayClick = async (day: number) => {
     if (!userReady) {
       console.log('⏳ Usuario no autenticado aún');
@@ -181,7 +218,6 @@ const Calendario: React.FC = () => {
     today.setHours(0, 0, 0, 0);
     selectedDate.setHours(0, 0, 0, 0);
 
-    // No permitir registros en días futuros
     if (selectedDate > today) {
       console.log('❌ No se pueden registrar días futuros');
       return;
@@ -191,7 +227,6 @@ const Calendario: React.FC = () => {
     setLoading(true);
     
     try {
-      // Verificar si ya existe un registro para este día
       const entry = await obtenerEntradaDia(
         currentDate.getFullYear(),
         currentDate.getMonth(),
@@ -199,12 +234,10 @@ const Calendario: React.FC = () => {
       );
       
       if (entry) {
-        // Si YA HAY registro, mostrar el modal con la información
         console.log('✅ Día con registro, mostrando modal');
         setSelectedEntry(entry);
         setShowDayModal(true);
       } else {
-        // Si NO HAY registro, redirigir a Home para registrar
         console.log('📝 Día sin registro, redirigiendo a Home');
         history.push({
           pathname: '/home',
@@ -219,7 +252,6 @@ const Calendario: React.FC = () => {
       }
     } catch (error) {
       console.error('Error al cargar entrada del día:', error);
-      // Si hay error al cargar, asumir que no hay registro
       history.push({
         pathname: '/home',
         state: {
@@ -235,13 +267,37 @@ const Calendario: React.FC = () => {
     }
   };
 
-  const getSelectedDate = () => {
-    if (!selectedDay) return '';
-    const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), selectedDay);
-    const dayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-    const dayName = dayNames[date.getDay()];
-    const monthAbbr = monthNames[currentDate.getMonth()].substring(0, 3);
-    return `${dayName}, ${selectedDay} ${monthAbbr}`;
+  const renderEmotionCircle = () => {
+    if (!selectedEntry) return null;
+
+    return (
+      <div className="emotion-circle-container">
+        <svg viewBox="0 0 200 200" className="emotion-circle-svg">
+          <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(255, 255, 255, 0.1)" strokeWidth="1" />
+          <circle cx="100" cy="100" r="70" fill="none" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="1" />
+          <circle cx="100" cy="100" r="50" fill="none" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="1" />
+          
+          <defs>
+            <radialGradient id="emotionGradient">
+              <stop offset="0%" stopColor={selectedEntry.moodColor} stopOpacity="0.8" />
+              <stop offset="50%" stopColor={selectedEntry.moodColor} stopOpacity="0.5" />
+              <stop offset="100%" stopColor={selectedEntry.moodColor} stopOpacity="0.2" />
+            </radialGradient>
+          </defs>
+          <circle cx="100" cy="100" r="40" fill="url(#emotionGradient)" />
+          <circle cx="100" cy="100" r="15" fill={selectedEntry.moodColor} />
+          
+          <image 
+            href={getEmotionImage(selectedEntry.moodLabel)}
+            x="50" 
+            y="50" 
+            width="100" 
+            height="100"
+            style={{ filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3))' }}
+          />
+        </svg>
+      </div>
+    );
   };
 
   const renderChart = () => {
@@ -264,7 +320,6 @@ const Calendario: React.FC = () => {
         className="emotion-chart"
         preserveAspectRatio="xMidYMid meet"
       >
-        {/* Eje Y */}
         <line 
           x1={padding} 
           y1={padding} 
@@ -274,7 +329,6 @@ const Calendario: React.FC = () => {
           strokeWidth="2"
         />
         
-        {/* Labels del eje Y con imágenes de MOOD_LEVELS */}
         {MOOD_LEVELS.slice().reverse().map((level, index) => {
           const y = padding + (chartHeight / 6) * index;
           return (
@@ -288,7 +342,6 @@ const Calendario: React.FC = () => {
                 strokeWidth="1" 
                 strokeDasharray="5,5"
               />
-              {/* Imagen de emoción en lugar de emoji */}
               <image 
                 href={getEmotionImage(level.label)}
                 x={padding - 35}
@@ -301,7 +354,6 @@ const Calendario: React.FC = () => {
           );
         })}
         
-        {/* Eje X */}
         <line 
           x1={padding} 
           y1={chartHeight + padding} 
@@ -311,7 +363,6 @@ const Calendario: React.FC = () => {
           strokeWidth="2"
         />
 
-        {/* Línea de tendencia */}
         {filteredEntries.length > 1 && (
           <polyline
             points={filteredEntries.map((entry, index) => {
@@ -326,7 +377,6 @@ const Calendario: React.FC = () => {
           />
         )}
 
-        {/* Puntos de datos */}
         {filteredEntries.map((entry, index) => {
           const x = padding + (chartWidth / (filteredEntries.length - 1 || 1)) * index;
           const y = padding + (chartHeight - (entry.moodValue * chartHeight / 6));
@@ -359,183 +409,110 @@ const Calendario: React.FC = () => {
     );
   };
 
-  const getEmotionImage = (moodLabel: string): string => {
-    const imageMap: { [key: string]: string } = {
-      'Muy incómodo': '/assets/emotions/muyincomodo.png',
-      'Incómodo': '/assets/emotions/incomodo.png',
-      'Levemente incómodo': '/assets/emotions/levementeincomodo.png',
-      'Neutral': '/assets/emotions/neutral.png',
-      'Levemente positivo': '/assets/emotions/levementepositivo.png',
-      'Positivo': '/assets/emotions/positivo.png',
-      'Muy positivo': '/assets/emotions/muypositivo.png'
-    };
-
-    return imageMap[moodLabel] || '/assets/emotions/neutral.png';
-  };
-
-  const renderEmotionCircle = () => {
-    if (!selectedEntry) return null;
-
-    return (
-      <div className="emotion-circle-container">
-        <svg viewBox="0 0 200 200" className="emotion-circle-svg">
-          <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(255, 255, 255, 0.1)" strokeWidth="1" />
-          <circle cx="100" cy="100" r="70" fill="none" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="1" />
-          <circle cx="100" cy="100" r="50" fill="none" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="1" />
-          
-          <defs>
-            <radialGradient id="emotionGradient">
-              <stop offset="0%" stopColor={selectedEntry.moodColor} stopOpacity="0.8" />
-              <stop offset="50%" stopColor={selectedEntry.moodColor} stopOpacity="0.5" />
-              <stop offset="100%" stopColor={selectedEntry.moodColor} stopOpacity="0.2" />
-            </radialGradient>
-          </defs>
-          <circle cx="100" cy="100" r="40" fill="url(#emotionGradient)" />
-          <circle cx="100" cy="100" r="15" fill={selectedEntry.moodColor} />
-          
-          {/* Imagen de emoción en el centro */}
-          <image 
-            href={getEmotionImage(selectedEntry.moodLabel)}
-            x="50" 
-            y="50" 
-            width="100" 
-            height="100"
-            style={{ filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3))' }}
-          />
-        </svg>
-      </div>
-    );
-  };
-
-  // Mostrar spinner mientras se autentica
-  if (!userReady) {
-    return (
-      <IonPage>
-        <IonContent fullscreen className="calendar-content">
-          <div style={{ 
-            display: 'flex', 
-            flexDirection: 'column',
-            justifyContent: 'center', 
-            alignItems: 'center', 
-            height: '100%',
-            gap: '20px'
-          }}>
-            <IonSpinner name="crescent" style={{ transform: 'scale(2)' }} />
-            <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '16px' }}>
-              Cargando calendario...
-            </p>
-          </div>
-        </IonContent>
-      </IonPage>
-    );
-  }
-
   return (
     <IonPage>
       <IonContent fullscreen className="calendar-content">
-        <div className="calendar-title">
-          Calendario Emocional
-        </div>
+        <div className="calendar-title">Calendario Emocional</div>
 
         <div className="calendar-header">
-          <IonButton fill="clear" className="nav-button" onClick={goToPreviousMonth}>
+          <IonButton fill="clear" onClick={goToPreviousMonth} className="nav-button">
             <IonIcon icon={arrowBack} />
           </IonButton>
           <h2 className="current-month">{getCurrentMonthYear()}</h2>
-          <IonButton fill="clear" className="nav-button" onClick={goToNextMonth}>
+          <IonButton fill="clear" onClick={goToNextMonth} className="nav-button">
             <IonIcon icon={arrowForward} />
           </IonButton>
         </div>
 
-        <IonSegment value={viewMode} onIonChange={e => setViewMode(e.detail.value as any)} className="view-selector">
-          <IonSegmentButton value="W">
-            <IonLabel>W</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton value="M">
-            <IonLabel>M</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton value="P">
-            <IonLabel>P</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton value="S">
-            <IonLabel>S</IonLabel>
-          </IonSegmentButton>
-        </IonSegment>
-
-        <div className="view-mode-label">
-          {viewModeLabels[viewMode]}
+        <div className="view-selector">
+          <IonSegment value={viewMode} onIonChange={(e) => setViewMode(e.detail.value as any)}>
+            <IonSegmentButton value="W">
+              <IonLabel>S</IonLabel>
+            </IonSegmentButton>
+            <IonSegmentButton value="M">
+              <IonLabel>M</IonLabel>
+            </IonSegmentButton>
+            <IonSegmentButton value="P">
+              <IonLabel>P</IonLabel>
+            </IonSegmentButton>
+            <IonSegmentButton value="S">
+              <IonLabel>S</IonLabel>
+            </IonSegmentButton>
+          </IonSegment>
         </div>
+        <div className="view-mode-label">{viewModeLabels[viewMode]}</div>
 
+        {/* ✅ Stats section ANTES del calendario */}
         <div className="stats-section">
           <div className="stat-item">
             <IonIcon icon={calendarOutline} className="stat-icon" />
             <div>
-              <div className="stat-value">{loading ? <IonSpinner /> : getFilteredEntries().length}</div>
-              <div className="stat-label">Entradas totales</div>
+              <div className="stat-value">{entries.length}</div>
+              <div className="stat-label">Días registrados</div>
             </div>
           </div>
           <IonButton 
-            fill="solid" 
-            shape="round"
-            className="chart-button-circle" 
+            className="chart-button-circle"
             onClick={() => setShowChart(true)}
           >
-            <IonIcon slot="icon-only" icon={barChartOutline} />
+            <IonIcon icon={barChartOutline} />
           </IonButton>
         </div>
 
+        {/* ✅ Calendario DESPUÉS de stats */}
         <IonCard className="calendar-card">
           <IonCardContent>
-            <div className="days-header">
-              <div>L</div>
-              <div>M</div>
-              <div>M</div>
-              <div>J</div>
-              <div>V</div>
-              <div>S</div>
-              <div>D</div>
-            </div>
-            
             {loading ? (
               <div style={{ textAlign: 'center', padding: '40px' }}>
                 <IonSpinner />
               </div>
             ) : (
-              <div className="calendar-grid">
-                {generateCalendarDays().map((dayObj, index) => {
-                  if (dayObj.isEmpty) {
-                    return <div key={`empty-${index}`} className="calendar-day-wrapper"></div>;
-                  }
-                  
-                  const entry = getEntryForDay(dayObj.day);
-                  const today = isToday(dayObj.day);
-                  
-                  return (
-                    <div key={`day-${dayObj.day}`} className="calendar-day-wrapper">
-                      <div className="day-number-label">{dayObj.day}</div>
-                      <div 
-                        className={`calendar-day-circle ${today ? 'today' : ''} ${entry ? 'has-entry' : ''}`}
-                        style={{ 
-                          backgroundColor: entry ? entry.moodColor : 'rgba(58, 63, 68, 0.3)',
-                          border: today ? '3px solid #00A8FC' : 'none'
-                        }}
-                        onClick={() => handleDayClick(dayObj.day)}
-                      >
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-
-            <div className="legend">
-              {MOOD_LEVELS.filter((_, i) => [0, 3, 6].includes(i)).map(level => (
-                <div key={level.value} className="legend-item">
-                  <div className="legend-color" style={{ backgroundColor: level.color }}></div>
-                  <span>{level.label}</span>
+              <>
+                <div className="days-header">
+                  <div>L</div>
+                  <div>M</div>
+                  <div>X</div>
+                  <div>J</div>
+                  <div>V</div>
+                  <div>S</div>
+                  <div>D</div>
                 </div>
-              ))}
-            </div>
+
+                <div className="calendar-grid">
+                  {generateCalendarDays().map((dayData, index) => {
+                    if (dayData.isEmpty) {
+                      return <div key={index} />;
+                    }
+
+                    const entry = getEntryForDay(dayData.day);
+                    const todayClass = isToday(dayData.day) ? 'today' : '';
+                    const hasEntryClass = entry ? 'has-entry' : '';
+
+                    return (
+                      <div key={index} className="calendar-day-wrapper">
+                        <div className="day-number-label">{dayData.day}</div>
+                        <div
+                          className={`calendar-day-circle ${todayClass} ${hasEntryClass}`}
+                          style={{
+                            backgroundColor: entry ? entry.moodColor : 'rgba(48, 73, 112, 0.3)',
+                          }}
+                          onClick={() => handleDayClick(dayData.day)}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div className="legend">
+                  {MOOD_LEVELS.slice(0, 3).map(level => (
+                    <div key={level.value} className="legend-item">
+                      <div className="legend-color" style={{ backgroundColor: level.color }} />
+                      <span>{level.label}</span>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
           </IonCardContent>
         </IonCard>
 
@@ -627,11 +604,9 @@ const Calendario: React.FC = () => {
                         />
                       </div>
                       <div className="day-modal-stat-info">
-                        {/* ✅ Mostrar hora solo si es día actual */}
                         {moodEntry.esDiaActual && (
                           <div className="day-modal-stat-value">{moodEntry.hora}</div>
                         )}
-                        {/* ✅ Mostrar momento del día solo si es día actual */}
                         <div className="day-modal-stat-label">
                           {moodEntry.moodLabel}
                           {moodEntry.esDiaActual && ` - ${moodEntry.momentoDia}`}

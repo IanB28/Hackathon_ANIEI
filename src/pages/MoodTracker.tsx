@@ -13,13 +13,11 @@ import {
 import { arrowBackOutline, closeOutline, informationCircleOutline } from 'ionicons/icons';
 import { useHistory, useLocation } from 'react-router-dom';
 import {
-  crearMoodEntry,
   crearMoodEntryConFecha,
   generarPalabrasFallback,
   actualizarPalabrasSeleccionadas,
   actualizarAreasImpacto,
   puedeRegistrarMood,
-  guardarRegistroMood,  // ✅ Agregar esta importación
   CATEGORIAS_IMPACTO,
 } from '../services/moodService';
 import './MoodTracker.css';
@@ -77,7 +75,6 @@ const MoodTracker: React.FC = () => {
   const inicializarMoodTracker = async () => {
     setLoading(true);
     try {
-      // Si es registro histórico, usar la fecha seleccionada
       const registrationDate = selectedDate ? new Date(selectedDate) : new Date();
       
       const { puede, registrosHoy } = await puedeRegistrarMood();
@@ -88,7 +85,6 @@ const MoodTracker: React.FC = () => {
         return;
       }
 
-      // Crear entry con la fecha correcta
       const id = await crearMoodEntryConFecha(
         emotionId, 
         emotion, 
@@ -141,13 +137,9 @@ const MoodTracker: React.FC = () => {
     if (palabrasSeleccionadas.includes(palabra)) {
       const nuevasSeleccionadas = palabrasSeleccionadas.filter(p => p !== palabra);
       setPalabrasSeleccionadas(nuevasSeleccionadas);
-      console.log('❌ Palabra deseleccionada:', palabra);
-      console.log('📝 Total seleccionadas ahora:', nuevasSeleccionadas.length);
     } else {
       const nuevasSeleccionadas = [...palabrasSeleccionadas, palabra];
       setPalabrasSeleccionadas(nuevasSeleccionadas);
-      console.log('✅ Palabra seleccionada:', palabra);
-      console.log('📝 Total seleccionadas ahora:', nuevasSeleccionadas.length);
     }
   };
 
@@ -159,14 +151,7 @@ const MoodTracker: React.FC = () => {
 
     setLoading(true);
     try {
-      console.log('💾 ENVIANDO A FIREBASE:');
-      console.log('   - Entry ID:', entryId);
-      console.log('   - Palabras seleccionadas:', palabrasSeleccionadas);
-      console.log('   - Cantidad:', palabrasSeleccionadas.length);
-      
       await actualizarPalabrasSeleccionadas(entryId, palabrasSeleccionadas);
-      
-      console.log('✅ Palabras guardadas exitosamente en Firebase');
       setPaso(2);
     } catch (error) {
       console.error('❌ Error al guardar palabras:', error);
@@ -180,13 +165,9 @@ const MoodTracker: React.FC = () => {
     if (areasSeleccionadas.includes(area)) {
       const nuevasSeleccionadas = areasSeleccionadas.filter(a => a !== area);
       setAreasSeleccionadas(nuevasSeleccionadas);
-      console.log('❌ Área deseleccionada:', area);
-      console.log('📝 Total áreas seleccionadas:', nuevasSeleccionadas.length);
     } else {
       const nuevasSeleccionadas = [...areasSeleccionadas, area];
       setAreasSeleccionadas(nuevasSeleccionadas);
-      console.log('✅ Área seleccionada:', area);
-      console.log('📝 Total áreas seleccionadas:', nuevasSeleccionadas.length);
     }
   };
 
@@ -199,15 +180,8 @@ const MoodTracker: React.FC = () => {
     setLoading(true);
     
     try {
-      console.log('💾 Finalizando registro...');
-      console.log('   - Entry ID:', entryId);
-      console.log('   - Áreas seleccionadas:', areasSeleccionadas);
-      
       await actualizarAreasImpacto(entryId, areasSeleccionadas);
       
-      console.log('✅ Registro completado exitosamente');
-      
-      // Si vino del calendario, regresar al calendario
       if (calendarContext && calendarContext.year !== undefined) {
         history.replace({
           pathname: '/calendario',
@@ -218,7 +192,6 @@ const MoodTracker: React.FC = () => {
           }
         });
       } else {
-        // Si no, ir a Journaling
         history.replace({
           pathname: '/journaling',
           state: {
@@ -276,7 +249,6 @@ const MoodTracker: React.FC = () => {
           </div>
         ) : (
           <>
-            {/* PASO 1: Seleccionar palabras */}
             {paso === 1 && (
               <div className="mood-step">
                 <div 
@@ -334,7 +306,6 @@ const MoodTracker: React.FC = () => {
               </div>
             )}
 
-            {/* PASO 2: Áreas de impacto */}
             {paso === 2 && (
               <div className="mood-step">
                 <div 
