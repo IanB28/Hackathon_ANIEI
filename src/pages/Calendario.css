@@ -120,8 +120,8 @@
 }
 
 .calendar-day-circle {
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.2s ease;

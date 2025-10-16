@@ -28,10 +28,10 @@ ion-content {
 /* Estilo flotante para IonTabBar estilo iOS */
 ion-tab-bar {
   position: sticky;
-  bottom: 20px;
-  left: 15px;    /* Esta pinche linea se debe de cambiar dependiendo del tamaño de la pantalla del fono hasta que se pruebe en alguna */
-  right: 15px;
-  width: calc(100% - 30px);
+  bottom: 15px;
+  left: 10px;    /* Esta pinche linea se debe de cambiar dependiendo del tamaño de la pantalla del fono hasta que se pruebe en alguna */
+  right: 10px;
+  width: calc(85% - 20px);
   height: 55px;
   border-radius: 25px;
   background: rgba(48, 73, 112, 0.8);
