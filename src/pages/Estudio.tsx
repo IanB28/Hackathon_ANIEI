@@ -192,7 +192,7 @@ const Estudio = () => {
     }
 
     try {
-      // Sesión 1: Matemáticas - EXCELENTE ✅
+      // Sesión 1: Matemáticas - EXCELENTE ✅ (96% completado)
       await crearSesionEstudio({
         titulo: 'Cálculo Diferencial',
         tema: 'Derivadas e Integrales',
@@ -211,7 +211,7 @@ const Estudio = () => {
         tiempoReal: 48,
       });
 
-      // Sesión 2: Programación - NORMAL 😐
+      // Sesión 2: Programación - REGULAR 😐 (71% completado)
       await crearSesionEstudio({
         titulo: 'Estructuras de Datos',
         tema: 'Árboles Binarios',
@@ -223,14 +223,14 @@ const Estudio = () => {
         tiempoPausa: 10,
         pausasPomodoro: 1,
         recomendacionesPausa: METODOS_ESTUDIO.flowtime.recomendacionesDefecto,
-        notas: 'Implementación de AVL. Tuve algunas dudas.',
+        notas: 'Implementación de AVL. Tuve algunas dudas, no terminé todo.',
         estado: 'terminada' as const,
         sentimientoFinal: 'Normal',
         colorSentimiento: '#FFD93D',
-        tiempoReal: 37,
+        tiempoReal: 25,
       });
 
-      // Sesión 3: Historia - MAL 😞
+      // Sesión 3: Historia - BAJO 😞 (48% completado)
       await crearSesionEstudio({
         titulo: 'Historia Universal',
         tema: 'Revolución Francesa',
@@ -242,25 +242,25 @@ const Estudio = () => {
         tiempoPausa: 5,
         pausasPomodoro: 1,
         recomendacionesPausa: METODOS_ESTUDIO.bloque.recomendacionesDefecto,
-        notas: 'Muchas distracciones, no pude concentrarme bien.',
+        notas: 'Muchas distracciones, abandoné la sesión temprano.',
         estado: 'terminada' as const,
         sentimientoFinal: 'Mal',
         colorSentimiento: '#FF6B6B',
-        tiempoReal: 20,
+        tiempoReal: 12,
       });
 
-      // Sesión 4: Física - EXCELENTE ✅
+      // Sesión 4: Física - EXCELENTE ✅ (97% completado)
       await crearSesionEstudio({
         titulo: 'Física Cuántica',
         tema: 'Principio de Incertidumbre',
         fecha: '13 oct, 10:00',
         duracion: '60 min',
-        metodoEstudio: 'Pomodoro',
-        descripcionMetodo: '25 min de enfoque + pausas. Ideal para mantener concentración.',
+        metodoEstudio: 'Bloque de Tiempo',
+        descripcionMetodo: 'Divide el tiempo en bloques de estudio intenso.',
         tiempoTotal: 60,
         tiempoPausa: 5,
         pausasPomodoro: 2,
-        recomendacionesPausa: METODOS_ESTUDIO.pomodoro.recomendacionesDefecto,
+        recomendacionesPausa: METODOS_ESTUDIO.bloque.recomendacionesDefecto,
         notas: 'Excelente sesión. Comprendí todos los conceptos.',
         estado: 'terminada' as const,
         sentimientoFinal: 'Bien',
@@ -268,7 +268,7 @@ const Estudio = () => {
         tiempoReal: 58,
       });
 
-      // Sesión 5: Literatura - NORMAL 😐
+      // Sesión 5: Literatura - BAJO 😐 (55% completado)
       await crearSesionEstudio({
         titulo: 'Literatura Española',
         tema: 'Don Quijote de la Mancha',
@@ -280,110 +280,110 @@ const Estudio = () => {
         tiempoPausa: 5,
         pausasPomodoro: 1,
         recomendacionesPausa: METODOS_ESTUDIO.flowtime.recomendacionesDefecto,
-        notas: 'Lectura y análisis. Sesión normal.',
+        notas: 'Lectura y análisis. Me aburrí y no terminé.',
         estado: 'terminada' as const,
         sentimientoFinal: 'Normal',
         colorSentimiento: '#FFD93D',
-        tiempoReal: 42,
+        tiempoReal: 22,
       });
 
-      // Sesión 6: Química - EXCELENTE ✅
+      // Sesión 6: Química - REGULAR ✅ (78% completado)
       await crearSesionEstudio({
         titulo: 'Química Orgánica',
         tema: 'Reacciones de Síntesis',
         fecha: '12 oct, 11:30',
         duracion: '55 min',
-        metodoEstudio: 'Bloque de Tiempo',
-        descripcionMetodo: 'Divide el tiempo en bloques de estudio intenso.',
+        metodoEstudio: 'Pomodoro',
+        descripcionMetodo: '25 min de enfoque + pausas. Ideal para mantener concentración.',
         tiempoTotal: 55,
         tiempoPausa: 10,
         pausasPomodoro: 2,
-        recomendacionesPausa: METODOS_ESTUDIO.bloque.recomendacionesDefecto,
-        notas: 'Práctica de ejercicios. Todo salió muy bien.',
+        recomendacionesPausa: METODOS_ESTUDIO.pomodoro.recomendacionesDefecto,
+        notas: 'Práctica de ejercicios. Me faltó completar algunos.',
         estado: 'terminada' as const,
         sentimientoFinal: 'Bien',
         colorSentimiento: '#6BCB77',
-        tiempoReal: 53,
+        tiempoReal: 43,
       });
 
-      // Sesión 7: Inglés - MAL 😞
+      // Sesión 7: Inglés - EXCELENTE � (93% completado)
       await crearSesionEstudio({
         titulo: 'English Grammar',
         tema: 'Past Perfect Continuous',
         fecha: '12 oct, 19:00',
         duracion: '30 min',
-        metodoEstudio: 'Pomodoro',
-        descripcionMetodo: '25 min de enfoque + pausas. Ideal para mantener concentración.',
+        metodoEstudio: 'Flowtime',
+        descripcionMetodo: 'Trabaja sin interrupciones hasta que sientas que necesitas una pausa.',
         tiempoTotal: 30,
         tiempoPausa: 5,
         pausasPomodoro: 1,
-        recomendacionesPausa: METODOS_ESTUDIO.pomodoro.recomendacionesDefecto,
-        notas: 'Cansancio mental. No pude enfocarme bien.',
+        recomendacionesPausa: METODOS_ESTUDIO.flowtime.recomendacionesDefecto,
+        notas: 'Buena concentración. Casi terminé todo el temario.',
         estado: 'terminada' as const,
-        sentimientoFinal: 'Mal',
-        colorSentimiento: '#FF6B6B',
-        tiempoReal: 25,
+        sentimientoFinal: 'Bien',
+        colorSentimiento: '#6BCB77',
+        tiempoReal: 28,
       });
 
-      // Sesión 8: Bases de Datos - NORMAL 😐
+      // Sesión 8: Bases de Datos - BAJO 😐 (44% completado)
       await crearSesionEstudio({
         titulo: 'Bases de Datos',
         tema: 'Normalización y Formas Normales',
         fecha: '11 oct, 15:00',
         duracion: '45 min',
-        metodoEstudio: 'Flowtime',
-        descripcionMetodo: 'Trabaja sin interrupciones hasta que sientas que necesitas una pausa.',
+        metodoEstudio: 'Bloque de Tiempo',
+        descripcionMetodo: 'Divide el tiempo en bloques de estudio intenso.',
         tiempoTotal: 45,
         tiempoPausa: 5,
         pausasPomodoro: 1,
-        recomendacionesPausa: METODOS_ESTUDIO.flowtime.recomendacionesDefecto,
-        notas: 'Repaso de conceptos. Sesión regular.',
+        recomendacionesPausa: METODOS_ESTUDIO.bloque.recomendacionesDefecto,
+        notas: 'Interrupciones constantes. No logré avanzar mucho.',
         estado: 'terminada' as const,
-        sentimientoFinal: 'Normal',
-        colorSentimiento: '#FFD93D',
-        tiempoReal: 46,
+        sentimientoFinal: 'Mal',
+        colorSentimiento: '#FF6B6B',
+        tiempoReal: 20,
       });
 
-      // Sesión 9: Estadística - EXCELENTE ✅
+      // Sesión 9: Estadística - REGULAR ✅ (67% completado)
       await crearSesionEstudio({
         titulo: 'Probabilidad',
         tema: 'Distribuciones de Probabilidad',
         fecha: '11 oct, 09:30',
         duracion: '70 min',
-        metodoEstudio: 'Bloque de Tiempo',
-        descripcionMetodo: 'Divide el tiempo en bloques de estudio intenso.',
+        metodoEstudio: 'Pomodoro',
+        descripcionMetodo: '25 min de enfoque + pausas. Ideal para mantener concentración.',
         tiempoTotal: 70,
         tiempoPausa: 10,
         pausasPomodoro: 3,
-        recomendacionesPausa: METODOS_ESTUDIO.bloque.recomendacionesDefecto,
-        notas: 'Ejercicios resueltos y teoría. Excelente progreso.',
+        recomendacionesPausa: METODOS_ESTUDIO.pomodoro.recomendacionesDefecto,
+        notas: 'Ejercicios resueltos. Me quedé a medio camino.',
         estado: 'terminada' as const,
-        sentimientoFinal: 'Bien',
-        colorSentimiento: '#6BCB77',
-        tiempoReal: 68,
+        sentimientoFinal: 'Normal',
+        colorSentimiento: '#FFD93D',
+        tiempoReal: 47,
       });
 
-      // Sesión 10: Redes - MAL 😞
+      // Sesión 10: Redes - EXCELENTE � (100% completado)
       await crearSesionEstudio({
         titulo: 'Redes de Computadoras',
         tema: 'Protocolo TCP/IP',
         fecha: '10 oct, 20:00',
         duracion: '35 min',
-        metodoEstudio: 'Pomodoro',
-        descripcionMetodo: '25 min de enfoque + pausas. Ideal para mantener concentración.',
+        metodoEstudio: 'Flowtime',
+        descripcionMetodo: 'Trabaja sin interrupciones hasta que sientas que necesitas una pausa.',
         tiempoTotal: 35,
         tiempoPausa: 5,
         pausasPomodoro: 1,
-        recomendacionesPausa: METODOS_ESTUDIO.pomodoro.recomendacionesDefecto,
-        notas: 'Tarde en la noche. No fue buena idea estudiar tan tarde.',
+        recomendacionesPausa: METODOS_ESTUDIO.flowtime.recomendacionesDefecto,
+        notas: '¡Perfecto! Completé todo el material planificado.',
         estado: 'terminada' as const,
-        sentimientoFinal: 'Mal',
-        colorSentimiento: '#FF6B6B',
-        tiempoReal: 30,
+        sentimientoFinal: 'Bien',
+        colorSentimiento: '#6BCB77',
+        tiempoReal: 35,
       });
 
       await cargarSesiones();
-      alert('✅ ¡10 sesiones de demostración creadas!\n\n📊 5 Bien | 3 Normal | 3 Mal');
+      alert('✅ ¡10 sesiones de demostración creadas!\n\n📊 Verde: ≥85% | Amarillo: 60-85% | Rojo: <60%');
     } catch (error) {
       console.error('Error al crear sesiones demo:', error);
       alert('❌ Error al crear las sesiones');

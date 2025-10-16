@@ -77,16 +77,23 @@ const TarjetaSesion: FC<TarjetaSesionProps> = ({
     sesion.estado === 'en-curso' ||
     sesion.estado === 'terminada') && expandido;
 
-  // Determinar color según sentimiento o estado
+  // Determinar color según rendimiento (completación de la sesión)
   const claseTema = (() => {
     // Si está en curso, usar color especial
     if (sesion.estado === 'en-curso') return 'en-curso';
     
-    // Si la sesión está terminada, usar el sentimiento guardado
-    if (sesion.estado === 'terminada' && sesion.sentimientoFinal) {
-      if (sesion.sentimientoFinal.includes('Bien')) return 'sentimiento-bien';
-      if (sesion.sentimientoFinal.includes('Normal')) return 'sentimiento-normal';
-      if (sesion.sentimientoFinal.includes('Mal')) return 'sentimiento-mal';
+    // Si la sesión está terminada, usar el rendimiento basado en tiempo completado
+    if (sesion.estado === 'terminada' && sesion.tiempoReal && sesion.tiempoTotal) {
+      const porcentajeCompletado = (sesion.tiempoReal / sesion.tiempoTotal) * 100;
+      
+      // Excelente: completó 85% o más (verde)
+      if (porcentajeCompletado >= 85) return 'sentimiento-bien';
+      
+      // Regular: completó entre 60% y 85% (amarillo/naranja)
+      if (porcentajeCompletado >= 60) return 'sentimiento-normal';
+      
+      // Bajo rendimiento: completó menos del 60% (rojo)
+      return 'sentimiento-mal';
     }
     
     // Para sesiones planificadas, usar color según tema
