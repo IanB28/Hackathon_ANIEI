@@ -1,0 +1,7 @@
+{
+  "name": "Stu-Health",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
