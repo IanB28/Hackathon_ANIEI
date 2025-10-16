@@ -35,7 +35,7 @@ const Login: React.FC = () => {
     const unsubscribe = observarAuth((user) => {
       if (user) {
         console.log("Usuario logueado:", user.email);
-        history.replace("/home");
+        //history.replace("/home");
       }
     });
 

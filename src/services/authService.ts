@@ -12,6 +12,14 @@ import {
 } from "firebase/auth";
 import { Capacitor } from "@capacitor/core";
 
+export interface UserProfile {
+  uid: string;
+  email: string | null;
+  displayName: string | null;
+  photoURL: string | null;
+  provider: string;
+}
+
 export const loginConGoogle = async () => {
   try {
     if (Capacitor.isNativePlatform()) {
@@ -84,4 +92,18 @@ export const observarAuth = (callback: (user: User | null) => void) => {
 
 export const obtenerUsuarioActual = () => {
   return auth.currentUser;
+};
+
+export const obtenerPerfilUsuario = (): UserProfile | null => {
+  const user = auth.currentUser;
+
+  if (!user) return null;
+
+  return {
+    uid: user.uid,
+    email: user.email,
+    displayName: user.displayName,
+    photoURL: user.photoURL,
+    provider: user.providerData[0]?.providerId || "email",
+  };
 };
