@@ -1,0 +1,329 @@
+/* ============================================
+   ESTILOS COMPARTIDOS PARA TODOS LOS MODALES
+   ============================================ */
+
+/* === BACKGROUND DEL MODAL === */
+.modal-estudio {
+  --background: transparent;
+}
+
+.modal-estudio ion-content {
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+}
+
+.modal-estudio ion-content::part(scroll) {
+  background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+}
+
+/* === HEADER === */
+.modal-estudio ion-header ion-toolbar {
+  --background: #1a2332;
+  --color: #fff;
+  --border-color: rgba(255, 255, 255, 0.1);
+}
+
+.modal-estudio ion-title {
+  color: #fff;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+/* === HEADER DETALLES === */
+.modal-detalles ion-title {
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+}
+
+.modal-estudio ion-buttons ion-button {
+  --color: #fff;
+}
+
+/* === CARDS === */
+.modal-estudio ion-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  margin: 16px 0;
+}
+
+.modal-estudio ion-card-header {
+  padding: 16px;
+}
+
+.modal-estudio ion-card-title {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.modal-estudio ion-card-content {
+  color: rgba(255, 255, 255, 0.9);
+  padding: 16px;
+}
+
+.modal-estudio ion-card-content p {
+  margin: 8px 0;
+  line-height: 1.6;
+}
+
+/* === ITEMS Y FORMULARIOS === */
+.modal-estudio ion-item {
+  --background: transparent;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --color: #fff;
+  margin-bottom: 12px;
+}
+
+.modal-estudio ion-label {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-weight: 500;
+}
+
+.modal-estudio ion-input,
+.modal-estudio ion-textarea,
+.modal-estudio ion-select {
+  color: #fff !important;
+  --placeholder-color: rgba(255, 255, 255, 0.5);
+  --placeholder-opacity: 1;
+}
+
+.modal-estudio ion-select::part(text) {
+  color: #fff;
+}
+
+/* === BOTONES === */
+.modal-estudio ion-button {
+  --border-radius: 12px;
+  font-weight: 600;
+  text-transform: none;
+  font-size: 15px;
+}
+
+.modal-estudio ion-button[expand="block"] {
+  margin: 12px 0;
+}
+
+/* === PROGRESS BARS === */
+.modal-estudio ion-progress-bar {
+  height: 8px;
+  border-radius: 8px;
+  margin: 8px 0;
+}
+
+/* === CHIPS === */
+.modal-estudio ion-chip {
+  border-radius: 12px;
+  font-weight: 500;
+  margin: 4px;
+}
+
+/* === TEXTOS === */
+.modal-estudio h1,
+.modal-estudio h2,
+.modal-estudio h3,
+.modal-estudio h4 {
+  color: #fff;
+  margin: 16px 0;
+}
+
+.modal-estudio p {
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+}
+
+.modal-estudio .ion-text-center {
+  text-align: center;
+}
+
+/* === LISTAS === */
+.modal-estudio ul {
+  color: rgba(255, 255, 255, 0.9);
+  padding-left: 20px;
+}
+
+.modal-estudio li {
+  margin: 8px 0;
+  line-height: 1.6;
+}
+
+/* === GRID === */
+.modal-estudio ion-grid {
+  padding: 0;
+}
+
+.modal-estudio ion-row {
+  padding: 0;
+}
+
+.modal-estudio ion-col {
+  padding: 8px;
+}
+
+/* === ESTILOS ESPECÍFICOS === */
+.metodo-descripcion {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 12px;
+  margin: 16px 0;
+  border-left: 4px solid #4F46E5;
+}
+
+.texto-intro,
+.texto-ayuda {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 16px 0;
+  font-size: 15px;
+}
+
+.opciones-sentimientos {
+  display: flex;
+  justify-content: space-around;
+  gap: 12px;
+  margin: 24px 0;
+  flex-wrap: wrap;
+}
+
+.sentimiento-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid;
+  border-radius: 16px;
+  padding: 20px;
+  min-width: 100px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.sentimiento-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.emoji-grande {
+  font-size: 48px;
+}
+
+.label-sentimiento {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* === TIMER === */
+.timer-grande {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 32px;
+  text-align: center;
+  margin: 24px 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.timer-display {
+  font-size: 56px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-label {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 8px;
+}
+
+/* === INFORMACIÓN DE SESIÓN === */
+.info-sesion {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.info-sesion p {
+  margin: 8px 0;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* === SECCIÓN DE PAUSA === */
+.seccion-pausa {
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  margin: 20px 0;
+  border: 2px solid #FFD93D;
+}
+
+.seccion-pausa h3 {
+  color: #FFD93D;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.recomendaciones-pausa {
+  margin: 16px 0;
+}
+
+.chips-recomendaciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+/* === BOTONES DE CONTROL === */
+.botones-control {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+/* === ESTADÍSTICAS === */
+.stat-label {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 430px) {
+  .modal-estudio ion-card {
+    margin: 12px 0;
+  }
+
+  .timer-display {
+    font-size: 48px;
+  }
+
+  .emoji-grande {
+    font-size: 40px;
+  }
+
+  .sentimiento-btn {
+    min-width: 80px;
+    padding: 16px;
+  }
+
+  .opciones-sentimientos {
+    gap: 8px;
+  }
+}

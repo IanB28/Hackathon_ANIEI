@@ -1,0 +1,597 @@
+/* ============================================
+   RESET GENERAL
+   ============================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ============================================
+   BACKGROUND DE LA PÁGINA
+   ============================================ */
+.estudio-page {
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+}
+
+.estudio-content {
+  --background: transparent;
+}
+
+.estudio-content::part(scroll) {
+  background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.header-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 16px;
+  margin: 12px 16px 0 16px;
+  color: #fff;
+  background: rgba(48, 73, 112, 0.4);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  position: sticky;
+  top: 12px;
+  z-index: 100;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.app-logo {
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.4) 0%, rgba(124, 58, 237, 0.4) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.app-logo:active {
+  transform: scale(0.95);
+}
+
+.logo-icon {
+  font-size: 32px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-start;
+}
+
+.header-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  letter-spacing: -0.8px;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.header-subtitle {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  text-align: left;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn-icon-modern {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-icon-modern:active {
+  transform: scale(0.95);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.btn-icon-modern.btn-primary {
+  background: rgba(76, 175, 80, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn-icon-modern.btn-primary:active {
+  background: rgba(69, 160, 73, 0.7);
+}
+
+/* ============================================
+   CONTENEDOR DE SESIONES
+   ============================================ */
+.sessions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 16px;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ============================================
+   TARJETAS DE SESIONES
+   ============================================ */
+.session-item {
+  position: relative;
+  border-radius: 12px;
+  padding: 18px;
+  color: #fff;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.session-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+}
+
+.session-item:active {
+  transform: translateY(-1px);
+}
+
+.session-item:last-child {
+  margin-bottom: 20px;
+}
+
+/* Degradados según tema - Nueva paleta */
+.session-item.math {
+  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+}
+
+.session-item.history {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+}
+
+.session-item.stats {
+  background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+}
+
+.session-item.physics {
+  background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+}
+
+.session-item.chemistry {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+}
+
+.session-item.engineering {
+  background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
+}
+
+/* Colores según sentimiento - Nueva paleta */
+.session-item.sentimiento-bien {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  box-shadow: 0 8px 16px rgba(16, 185, 129, 0.4);
+}
+
+.session-item.sentimiento-bien:hover {
+  box-shadow: 0 16px 32px rgba(16, 185, 129, 0.5);
+}
+
+.session-item.sentimiento-normal {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  box-shadow: 0 8px 16px rgba(245, 158, 11, 0.4);
+}
+
+.session-item.sentimiento-normal:hover {
+  box-shadow: 0 16px 32px rgba(245, 158, 11, 0.5);
+}
+
+.session-item.sentimiento-mal {
+  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+  box-shadow: 0 8px 16px rgba(239, 68, 68, 0.4);
+}
+
+.session-item.sentimiento-mal:hover {
+  box-shadow: 0 16px 32px rgba(239, 68, 68, 0.5);
+}
+
+.session-item.en-curso {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  box-shadow: 0 8px 16px rgba(59, 130, 246, 0.4);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 8px 16px rgba(59, 130, 246, 0.4);
+  }
+  50% {
+    box-shadow: 0 12px 24px rgba(59, 130, 246, 0.6);
+  }
+}
+
+/* ============================================
+   DETALLES DE SESIÓN
+   ============================================ */
+.session-detail {
+  margin-top: 16px;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.session-name {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  line-height: 1.3;
+  margin-bottom: 12px;
+}
+
+.session-time {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 15px;
+  opacity: 0.95;
+  font-weight: 500;
+}
+
+.session-description {
+  display: block;
+  margin-bottom: 16px;
+  font-size: 14px;
+  opacity: 0.9;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.emotion-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.95;
+}
+
+/* ============================================
+   SLIDER
+   ============================================ */
+.slider-container {
+  width: 100%;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  position: relative;
+  overflow: visible;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.slider-container:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.slider-fill {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.7) 100%);
+  border-radius: 12px;
+  transition: width 0.2s ease;
+}
+
+.slider-thumb {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: left 0.2s ease;
+  cursor: grab;
+  touch-action: none;
+}
+
+.slider-thumb:active {
+  cursor: grabbing;
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* ============================================
+   HEADER DE SESIÓN CON BOTONES
+   ============================================ */
+.session-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.session-header > div:first-child {
+  flex: 1;
+  cursor: pointer;
+  min-height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.session-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.btn-action {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 10px;
+  border: none;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-action:active {
+  transform: scale(0.95);
+}
+
+.btn-start {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  font-size: 18px;
+  padding-left: 2px;
+}
+
+.btn-start:hover {
+  transform: scale(1.15) rotate(5deg);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.5);
+}
+
+.btn-delete {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  font-size: 24px;
+}
+
+.btn-delete:hover {
+  transform: scale(1.15) rotate(-5deg);
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.5);
+}
+
+/* ============================================
+   RESPONSIVE (max-width: 430px)
+   ============================================ */
+@media (max-width: 430px) {
+  .estudio-content::part(scroll) {
+    padding: 0;
+  }
+
+  .header-section {
+    padding: 16px 12px;
+    margin: 8px 12px 0 12px;
+    top: 8px;
+    border-radius: 14px;
+  }
+
+  .app-logo {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: 12px;
+  }
+
+  .logo-icon {
+    font-size: 28px;
+  }
+
+  .header-title {
+    font-size: 28px;
+  }
+
+  .header-subtitle {
+    font-size: 12px;
+  }
+
+  .btn-icon-modern {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 10px;
+    font-size: 18px;
+  }
+
+  .header-actions {
+    gap: 8px;
+  }
+
+  .sessions-container {
+    padding-top: 16px;
+  }
+
+  .session-item {
+    font-size: 15px;
+    padding: 16px;
+  }
+
+  .session-item.expanded {
+    padding: 20px;
+  }
+
+  .session-name {
+    font-size: 18px;
+  }
+
+  .session-time,
+  .session-description {
+    font-size: 14px;
+  }
+
+  .btn-action {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    font-size: 16px;
+  }
+
+  .slider-thumb {
+    width: 24px;
+    height: 24px;
+  }
+
+  .slider-container {
+    height: 16px;
+  }
+}
+
+/* ============================================
+   COMPATIBILIDAD LEGACY
+   ============================================ */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #a0aec0 0%, #cbd5e0 100%);
+}
+
+.user-name {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.menu-icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+
+.menu-icon span {
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  border-radius: 50%;
+}
+
+.title-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.icon {
+  font-size: 28px;
+}
+
+.title-text {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  flex: 1;
+}
+
+.btn-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 18px;
+  transition: background 0.3s;
+}
+
+.btn-icon:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.btn-icon:active {
+  transform: scale(0.95);
+}

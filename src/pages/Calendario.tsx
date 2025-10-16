@@ -4,13 +4,13 @@ import './Calendario.css';
 
 const Calendario: React.FC = () => {
   return (
-    <IonPage>
+    <IonPage className="calendario-page">
       <IonHeader>
         <IonToolbar>
           <IonTitle>Calendario</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
+      <IonContent className="calendario-content" fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Calendario</IonTitle>

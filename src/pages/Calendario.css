@@ -1,0 +1,10 @@
+/* ============================================
+   CALENDARIO - ESTILOS
+   ============================================ */
+.calendario-page {
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+}
+
+.calendario-content {
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+}
