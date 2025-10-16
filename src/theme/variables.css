@@ -1,2 +1,192 @@
 /* For information on how to create your own theme, please see:
 http://ionicframework.com/docs/theming/ */
+
+:root {
+  --ion-background-color: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+  --ion-tab-bar-background: linear-gradient(135deg, #304970 0%, #354A6D 100%);
+  --ion-tab-bar-color: rgba(255, 255, 255, 0.5);
+  --ion-tab-bar-color-selected: #ffffff;
+}
+
+/* Forzar modo iOS para los iconos */
+.ios ion-icon,
+.md ion-icon,
+ion-icon {
+  --ionicon-stroke-width: 32px;
+}
+
+/* Fondo global con gradiente */
+ion-app {
+  background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+  background-attachment: fixed;
+}
+
+ion-content {
+  --background: transparent;
+}
+
+/* Estilo flotante para IonTabBar estilo iOS */
+ion-tab-bar {
+  position: sticky;
+  bottom: 20px;
+  left: 3px;    /* Esta pinche linea se debe de cambiar dependiendo del tamaño de la pantalla del fono hasta que se pruebe en alguna */
+  right: 26px;
+  width: calc(100% - 32px);
+  height: 55px;
+  border-radius: 25px;
+  background: rgba(48, 73, 112, 0.8);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+              0 2px 8px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding:8px 12px 8px 12px;
+  margin: 0 auto;
+  z-index: 10;
+}
+
+/* Remover borde superior por defecto */
+ion-tab-bar::before {
+  display: none;
+}
+
+/* Estilo de los botones de tabs */
+ion-tab-button {
+  --color: rgba(255, 255, 255, 0.5);
+  --color-selected: #ffffff;
+  --background: transparent;
+  --background-focused: transparent;
+  border-radius: 18px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 0 4px;
+  position: relative;
+}
+
+/* Efecto hover */
+ion-tab-button:hover {
+  --color: rgba(255, 255, 255, 0.8);
+}
+
+/* Tab seleccionado */
+ion-tab-button.tab-selected {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 12px rgba(255, 255, 255, 0.1);
+}
+
+/* Animación del tab seleccionado */
+ion-tab-button.tab-selected::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.05);
+  animation: pulse-tab 2s ease-in-out infinite;
+}
+
+@keyframes pulse-tab {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}
+
+/* Iconos de los tabs - Forzar estilo iOS */
+ion-tab-button ion-icon {
+  font-size: 26px;
+  margin-bottom: 2px;
+  transition: transform 0.3s ease;
+  --ionicon-stroke-width: 32px;
+}
+
+ion-tab-button.tab-selected ion-icon {
+  transform: scale(1.1);
+}
+
+/* Labels de los tabs */
+ion-tab-button ion-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  margin-top: 4px;
+  text-transform: none;
+}
+
+/* Efecto de ripple personalizado */
+ion-tab-button::part(native) {
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+/* Indicador de tab activo (estilo iOS) */
+ion-tab-button.tab-selected::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+/* Ajustes para modo oscuro */
+@media (prefers-color-scheme: dark) {
+  ion-tab-bar {
+    background: rgba(48, 73, 112, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+}
+
+/* Ajustes responsive */
+@media (min-width: 768px) {
+  ion-tab-bar {
+    max-width: 500px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* Animación de entrada */
+ion-tab-bar {
+  animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Badge en los tabs (opcional) */
+ion-tab-button ion-badge {
+  position: absolute;
+  top: 8px;
+  right: 20%;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 9px;
+  background: #ff3b30;
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(255, 59, 48, 0.4);
+}

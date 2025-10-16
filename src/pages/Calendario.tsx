@@ -1,6 +1,6 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonIcon, IonCard, IonCardContent, IonButton, IonModal } from '@ionic/react';
-import { arrowBack, arrowForward, calendarOutline, close } from 'ionicons/icons';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { IonContent, IonPage, IonSegment, IonSegmentButton, IonLabel, IonIcon, IonCard, IonCardContent, IonButton, IonModal, IonHeader, IonToolbar } from '@ionic/react';
+import { arrowBack, arrowForward, calendarOutline, close, barChartOutline } from 'ionicons/icons';
 import './Calendario.css';
 
 interface EmotionEntry {
@@ -142,8 +142,8 @@ const Calendario: React.FC = () => {
 
   const renderChart = () => {
     const filteredEntries = getFilteredEntries();
-    const chartHeight = 400;
-    const chartWidth = 600;
+    const chartHeight = 350;
+    const chartWidth = 550;
     const padding = 60;
 
     return (
@@ -157,24 +157,24 @@ const Calendario: React.FC = () => {
           y1={padding} 
           x2={padding} 
           y2={chartHeight + padding} 
-          stroke="#fff" 
+          stroke="rgba(255, 255, 255, 0.3)" 
           strokeWidth="2"
         />
         
-        <text x={padding - 40} y={padding + 10} fill="#4CAF50" fontSize="16" fontWeight="bold">Bien</text>
-        <text x={padding - 50} y={chartHeight / 2 + padding + 5} fill="#FFC107" fontSize="16" fontWeight="bold">Neutral</text>
-        <text x={padding - 30} y={chartHeight + padding + 5} fill="#F44336" fontSize="16" fontWeight="bold">Mal</text>
+        <text x={padding - 40} y={padding + 10} fill="#4CAF50" fontSize="14" fontWeight="bold">Bien</text>
+        <text x={padding - 50} y={chartHeight / 2 + padding + 5} fill="#FFC107" fontSize="14" fontWeight="bold">Neutral</text>
+        <text x={padding - 30} y={chartHeight + padding + 5} fill="#F44336" fontSize="14" fontWeight="bold">Mal</text>
         
-        <line x1={padding} y1={padding} x2={chartWidth + padding} y2={padding} stroke="#3A3F44" strokeWidth="1" strokeDasharray="5,5"/>
-        <line x1={padding} y1={chartHeight / 2 + padding} x2={chartWidth + padding} y2={chartHeight / 2 + padding} stroke="#3A3F44" strokeWidth="1" strokeDasharray="5,5"/>
-        <line x1={padding} y1={chartHeight + padding} x2={chartWidth + padding} y2={chartHeight + padding} stroke="#3A3F44" strokeWidth="1" strokeDasharray="5,5"/>
+        <line x1={padding} y1={padding} x2={chartWidth + padding} y2={padding} stroke="rgba(255, 255, 255, 0.1)" strokeWidth="1" strokeDasharray="5,5"/>
+        <line x1={padding} y1={chartHeight / 2 + padding} x2={chartWidth + padding} y2={chartHeight / 2 + padding} stroke="rgba(255, 255, 255, 0.1)" strokeWidth="1" strokeDasharray="5,5"/>
+        <line x1={padding} y1={chartHeight + padding} x2={chartWidth + padding} y2={chartHeight + padding} stroke="rgba(255, 255, 255, 0.1)" strokeWidth="1" strokeDasharray="5,5"/>
         
         <line 
           x1={padding} 
           y1={chartHeight + padding} 
           x2={chartWidth + padding} 
           y2={chartHeight + padding} 
-          stroke="#fff" 
+          stroke="rgba(255, 255, 255, 0.3)" 
           strokeWidth="2"
         />
 
@@ -188,7 +188,7 @@ const Calendario: React.FC = () => {
               <circle
                 cx={x}
                 cy={y}
-                r="8"
+                r="10"
                 fill={getEmotionColor(entry.emotion)}
                 stroke="#fff"
                 strokeWidth="3"
@@ -196,11 +196,11 @@ const Calendario: React.FC = () => {
               
               <text
                 x={x}
-                y={chartHeight + padding + 30}
-                fill="#999"
-                fontSize="14"
+                y={chartHeight + padding + 25}
+                fill="rgba(255, 255, 255, 0.7)"
+                fontSize="12"
                 textAnchor="middle"
-                fontWeight="bold"
+                fontWeight="600"
               >
                 {entry.fullDate.getDate()}/{entry.fullDate.getMonth() + 1}
               </text>
@@ -213,12 +213,11 @@ const Calendario: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar className="calendar-toolbar">
-          <IonTitle>Calendario Emocional</IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonContent fullscreen className="calendar-content">
+        <div className="calendar-title">
+          Calendario Emocional
+        </div>
+
         <div className="calendar-header">
           <IonButton fill="clear" className="nav-button" onClick={goToPreviousMonth}>
             <IonIcon icon={arrowBack} />
@@ -256,6 +255,14 @@ const Calendario: React.FC = () => {
               <div className="stat-label">Entradas totales</div>
             </div>
           </div>
+          <IonButton 
+            fill="solid" 
+            shape="round"
+            className="chart-button-circle" 
+            onClick={() => setShowChart(true)}
+          >
+            <IonIcon slot="icon-only" icon={barChartOutline} />
+          </IonButton>
         </div>
 
         <IonCard className="calendar-card">
@@ -313,9 +320,6 @@ const Calendario: React.FC = () => {
         </IonCard>
 
         <div className="bottom-actions">
-          <IonButton expand="block" className="chart-button" onClick={() => setShowChart(true)}>
-            📊 Ver Gráfica
-          </IonButton>
           <IonButton expand="block" className="register-button">
             📅 Registrar Día
           </IonButton>
@@ -323,14 +327,22 @@ const Calendario: React.FC = () => {
 
         <IonModal isOpen={showChart} onDidDismiss={() => setShowChart(false)} className="chart-modal">
           <IonHeader>
-            <IonToolbar className="calendar-toolbar">
-              <IonTitle>Gráfica de Emociones</IonTitle>
-              <IonButton slot="end" fill="clear" onClick={() => setShowChart(false)}>
-                <IonIcon icon={close} />
+            <IonToolbar>
+              <IonButton 
+                slot="end" 
+                fill="clear" 
+                onClick={() => setShowChart(false)}
+                className="chart-modal-close-button"
+              >
+                <IonIcon slot="icon-only" icon={close} />
               </IonButton>
             </IonToolbar>
           </IonHeader>
           <IonContent className="chart-content">
+            <div className="chart-title">
+              Gráfica de Emociones
+            </div>
+
             <div className="chart-info">
               <h3>Tendencia Emocional - {viewModeLabels[viewMode]}</h3>
               <p>Mostrando {getFilteredEntries().length} registros</p>
@@ -347,7 +359,7 @@ const Calendario: React.FC = () => {
                   <div className="chart-stat-value">
                     {getFilteredEntries().filter(e => e.emotion === 'bien').length}
                   </div>
-                  <div className="chart-stat-label">Días Bien</div>
+                  <div className="chart-stat-label">Días te sentiste bien</div>
                 </div>
               </div>
               <div className="chart-stat-item">
@@ -356,7 +368,7 @@ const Calendario: React.FC = () => {
                   <div className="chart-stat-value">
                     {getFilteredEntries().filter(e => e.emotion === 'neutral').length}
                   </div>
-                  <div className="chart-stat-label">Días Neutral</div>
+                  <div className="chart-stat-label">Días te sentiste neutral</div>
                 </div>
               </div>
               <div className="chart-stat-item">
@@ -365,7 +377,7 @@ const Calendario: React.FC = () => {
                   <div className="chart-stat-value">
                     {getFilteredEntries().filter(e => e.emotion === 'mal').length}
                   </div>
-                  <div className="chart-stat-label">Días Mal</div>
+                  <div className="chart-stat-label">Días te sentiste mal</div>
                 </div>
               </div>
             </div>

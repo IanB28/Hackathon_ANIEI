@@ -1,12 +1,24 @@
 .calendar-content {
-  --background: #2C2F33;
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
   --padding-start: 16px;
   --padding-end: 16px;
+  --padding-top: 20px;
+  padding-bottom: 100px;
+}
+
+.calendar-title {
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: bold;
+  text-align: left;
+  padding: 20px 0 15px 0;
+  margin: 0;
 }
 
 .calendar-toolbar {
-  --background: #23272A;
+  --background: transparent;
   --color: #fff;
+  box-shadow: none;
 }
 
 .calendar-header {
@@ -15,41 +27,63 @@
   align-items: center;
   padding: 20px 10px;
   color: #fff;
+  background: rgba(48, 73, 112, 0.3);
+  border-radius: 12px;
+  margin: 10px 0;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .current-month {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
   margin: 0;
+  color: #fff;
 }
 
 .nav-button {
-  --color: #00A8FC;
+  --color: #fff;
+  --background: rgba(255, 255, 255, 0.1);
+  --border-radius: 10px;
+}
+
+.nav-button:hover {
+  --background: rgba(255, 255, 255, 0.2);
 }
 
 .view-selector {
   margin: 10px 0;
-  --background: #23272A;
+  background: rgba(48, 73, 112, 0.3);
+  border-radius: 12px;
+  padding: 4px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .view-selector ion-segment-button {
-  --color: #999;
-  --color-checked: #00A8FC;
-  --indicator-color: #00A8FC;
+  --color: rgba(255, 255, 255, 0.6);
+  --color-checked: #ffffff;
+  --indicator-color: rgba(255, 255, 255, 0.2);
+  --border-radius: 8px;
   min-width: 60px;
+  font-weight: 600;
 }
 
 .view-mode-label {
   text-align: center;
-  color: #999;
+  color: rgba(255, 255, 255, 0.7);
   font-size: 12px;
   margin: 5px 0 15px;
+  font-weight: 500;
 }
 
 .calendar-card {
-  background: #23272A;
+  background: rgba(48, 73, 112, 0.3);
   margin: 10px 0;
-  border-radius: 12px;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .days-header {
@@ -58,7 +92,7 @@
   gap: 8px;
   margin-bottom: 15px;
   text-align: center;
-  color: #666;
+  color: rgba(255, 255, 255, 0.7);
   font-weight: 600;
   font-size: 13px;
 }
@@ -80,7 +114,7 @@
 
 .day-number-label {
   font-size: 12px;
-  color: #999;
+  color: rgba(255, 255, 255, 0.6);
   font-weight: 500;
   height: 16px;
 }
@@ -96,10 +130,12 @@
 
 .calendar-day-circle:hover {
   transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
 }
 
 .calendar-day-circle.today {
   animation: pulse-ring 2s ease-in-out infinite;
+  border: 3px solid #00A8FC !important;
 }
 
 @keyframes pulse-ring {
@@ -119,7 +155,7 @@
   display: flex;
   justify-content: space-around;
   padding: 15px 0;
-  border-top: 1px solid #3A3F44;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .legend-item {
@@ -128,19 +164,27 @@
   gap: 8px;
   color: #fff;
   font-size: 12px;
+  font-weight: 500;
 }
 
 .legend-color {
   width: 20px;
   height: 20px;
   border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .stats-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 20px;
-  background: #23272A;
+  background: rgba(48, 73, 112, 0.3);
   border-radius: 12px;
   margin: 15px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .stat-item {
@@ -148,111 +192,177 @@
   align-items: center;
   gap: 15px;
   color: #fff;
+  flex: 1;
 }
 
 .stat-icon {
   font-size: 32px;
-  color: #00A8FC;
+  color: #fff;
 }
 
 .stat-value {
   font-size: 24px;
   font-weight: bold;
+  color: #fff;
 }
 
 .stat-label {
   font-size: 12px;
-  color: #999;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.chart-button-circle {
+  width: 56px;
+  height: 56px;
+  --border-radius: 50%;
+  --background: linear-gradient(135deg, #304970 0%, #354A6D 100%);
+  --background-hover: linear-gradient(135deg, #354A6D 0%, #304970 100%);
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --padding-start: 0;
+  --padding-end: 0;
+  margin: 0;
+  transition: all 0.3s ease;
+}
+
+.chart-button-circle:hover {
+  transform: scale(1.1);
+  --box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.chart-button-circle ion-icon {
+  font-size: 28px;
+  color: #fff;
 }
 
 .bottom-actions {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 20px 0;
-}
-
-.chart-button, .register-button {
-  --background: #00A8FC;
-  --background-hover: #0096E0;
-  --border-radius: 12px;
-  font-weight: 600;
-  height: 50px;
+  padding: 20px 0 40px;
 }
 
 .register-button {
-  --background: #4CAF50;
-  --background-hover: #45a049;
+  --background: rgba(76, 175, 80, 0.5);
+  --background-hover: rgba(69, 160, 73, 0.7);
+  --border-radius: 12px;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  font-weight: 600;
+  height: 50px;
+  color: #fff;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Modal Styles */
 .chart-modal {
-  --background: #2C2F33;
-  --height: 90%;
-  --border-radius: 16px 16px 0 0;
+  --background: transparent;
+  --height: 100%;
+  --width: 100%;
+}
+
+.chart-modal ion-toolbar {
+  --background: transparent;
+  --color: #fff;
+  --border-color: transparent;
+}
+
+.chart-modal-close-button {
+  --color: #fff;
+  --background: rgba(255, 255, 255, 0.1);
+  --border-radius: 50%;
+  width: 40px;
+  height: 40px;
 }
 
 .chart-content {
-  --background: #2C2F33;
-  --padding-start: 20px;
-  --padding-end: 20px;
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 20px;
+  padding-bottom: 100px;
+}
+
+.chart-title {
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: bold;
+  text-align: left;
+  padding: 20px 0 15px 0;
+  margin: 0;
 }
 
 .chart-info {
   text-align: center;
   color: #fff;
-  margin: 20px 0;
+  margin: 10px 0 15px;
+  padding: 20px 15px;
+  background: rgba(48, 73, 112, 0.3);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .chart-info h3 {
   font-size: 20px;
-  margin-bottom: 5px;
+  margin: 0 0 8px 0;
+  color: #fff;
+  font-weight: 600;
 }
 
 .chart-info p {
-  color: #999;
+  color: rgba(255, 255, 255, 0.7);
   font-size: 14px;
+  margin: 0;
 }
 
 .chart-container {
-  background: #23272A;
-  border-radius: 12px;
+  background: rgba(48, 73, 112, 0.3);
+  border-radius: 16px;
   padding: 30px 10px;
-  margin: 20px 0;
+  margin: 15px 0;
   overflow-x: auto;
-  min-height: 450px;
+  min-height: 400px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .emotion-chart {
   width: 100%;
   height: 100%;
-  min-height: 400px;
+  min-height: 380px;
 }
 
 .chart-stats {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  margin-top: 30px;
-  padding-bottom: 30px;
+  gap: 12px;
+  margin-top: 15px;
+  padding-bottom: 20px;
 }
 
 .chart-stat-item {
   display: flex;
   align-items: center;
   gap: 15px;
-  background: #23272A;
+  background: rgba(48, 73, 112, 0.3);
   padding: 15px;
   border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .chart-stat-icon {
   width: 50px;
   height: 50px;
+  min-width: 50px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 28px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .chart-stat-info {
@@ -263,9 +373,12 @@
   font-size: 24px;
   font-weight: bold;
   color: #fff;
+  margin: 0 0 4px 0;
 }
 
 .chart-stat-label {
-  font-size: 12px;
-  color: #999;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  font-weight: 500;
 }
