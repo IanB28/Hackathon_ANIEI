@@ -1,0 +1,398 @@
+:root {
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+  --background-dark: #1a2332;
+  --background-card: #253447;
+  --text-light: #FFFFFF;
+  --text-muted: #8B95A5;
+  --button-gradient-start: #6366F1;
+  --button-gradient-end: #8B5CF6;
+  --chip-bg: rgba(139, 149, 165, 0.2);
+  --chip-selected-bg: #2563EB;
+}
+
+/* ✅ Header sin borde */
+.ion-no-border {
+  --border-width: 0;
+}
+
+.mood-tracker-content {
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+  background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%) fixed;
+}
+
+/* ✅ Toolbar mejorado */
+.minimal-toolbar-mood {
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+  --border-style: none;
+  --border-width: 0;
+  --min-height: 64px;
+  padding: 12px 16px;
+  background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%) fixed;
+}
+
+/* ✅ Contenedor del header */
+.mood-tracker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 12px;
+  background: transparent !important;
+}
+
+/* ✅ Título del toolbar */
+.mood-tracker-title {
+  flex: 1;
+  text-align: center;
+  color: #FFFFFF !important;
+  font-size: 32px !important;
+  font-weight: 700 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.5px !important;
+  background: transparent !important;
+}
+
+/* ✅ Espaciador para balancear el layout */
+.toolbar-spacer {
+  width: 44px;
+  min-width: 44px;
+  background: transparent !important;
+}
+
+/* ✅ Botones mejorados */
+.back-button-mood,
+.close-button-mood {
+  --color: #FFFFFF;
+  --background: transparent;
+  --background-hover: rgba(255, 255, 255, 0.1);
+  --background-activated: rgba(255, 255, 255, 0.15);
+  --border-radius: 50%;
+  --padding-start: 0;
+  --padding-end: 0;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  margin: 0;
+  font-size: 28px;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.back-button-mood::part(native),
+.close-button-mood::part(native) {
+  background: transparent !important;
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-button-mood:hover,
+.close-button-mood:hover {
+  --background-hover: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+}
+
+.close-button-mood:hover {
+  --color: #EF4444;
+  --background-hover: rgba(239, 68, 68, 0.1);
+}
+
+.back-button-mood:active,
+.close-button-mood:active {
+  transform: scale(0.95);
+}
+
+.back-button-mood ion-icon,
+.close-button-mood ion-icon {
+  font-size: 28px;
+  background: transparent !important;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  min-height: 50vh;
+  background: transparent !important;
+}
+
+.loading-container p {
+  color: var(--text-muted);
+  font-size: 15px;
+  margin-top: 20px;
+  background: transparent !important;
+}
+
+.mood-step {
+  padding: 32px 20px 40px;
+  max-width: 500px;
+  margin: 0 auto;
+  background: transparent !important;
+}
+
+.mood-icon {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+.mood-emoji-large {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.3));
+  background: transparent !important;
+}
+
+.mood-step h3 {
+  font-size: 32px;
+  font-weight: 600;
+  text-align: center;
+  margin: 0 0 24px 0;
+  letter-spacing: 0.3px;
+  background: transparent !important;
+}
+
+.mood-question {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 28px;
+  background: transparent !important;
+}
+
+.mood-question span {
+  color: var(--text-light);
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+  background: transparent !important;
+}
+
+.mood-question ion-icon {
+  color: var(--text-muted);
+  font-size: 20px;
+  background: transparent !important;
+}
+
+.palabras-count {
+  text-align: center;
+  margin-bottom: 20px;
+  background: transparent !important;
+}
+
+.palabras-count small {
+  color: var(--text-muted);
+  font-size: 13px;
+  background: transparent !important;
+}
+
+.palabras-grid,
+.areas-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 24px;
+  padding: 0 8px;
+  background: transparent !important;
+}
+
+.palabra-chip,
+.area-chip {
+  --background: var(--chip-bg);
+  --color: var(--text-light);
+  height: 44px;
+  padding: 0 20px;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 22px;
+  border: 1.5px solid rgba(139, 149, 165, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.palabra-chip:hover,
+.area-chip:hover {
+  --background: rgba(139, 149, 165, 0.35);
+  border-color: rgba(99, 102, 241, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.palabra-chip.selected,
+.area-chip.selected {
+  --background: linear-gradient(135deg, var(--button-gradient-start), var(--button-gradient-end));
+  --color: var(--text-light);
+  border-color: var(--button-gradient-start);
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
+}
+
+.show-more-btn {
+  --color: var(--text-muted);
+  font-size: 14px;
+  margin: 0 auto 24px;
+  display: flex;
+  align-items: center;
+  text-transform: none;
+}
+
+.show-more-btn::part(native) {
+  background: transparent !important;
+}
+
+.mood-next-btn,
+.mood-done-btn {
+  --border-radius: 12px;
+  --box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
+  --padding-top: 18px;
+  --padding-bottom: 18px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: none;
+  margin-top: 16px;
+  transition: all 0.3s ease;
+}
+
+.mood-next-btn::part(native),
+.mood-done-btn::part(native) {
+  background: linear-gradient(135deg, var(--button-gradient-start), var(--button-gradient-end)) !important;
+}
+
+.mood-next-btn:hover:not(:disabled),
+.mood-done-btn:hover:not(:disabled) {
+  --box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+  transform: translateY(-2px);
+}
+
+.mood-next-btn:active:not(:disabled),
+.mood-done-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.mood-next-btn:disabled,
+.mood-done-btn:disabled {
+  --background: rgba(139, 149, 165, 0.3);
+  --box-shadow: none;
+  opacity: 0.5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .minimal-toolbar-mood {
+    --min-height: 60px;
+    padding: 10px 12px;
+  }
+
+  .mood-tracker-title {
+    font-size: 20px !important;
+  }
+
+  .back-button-mood,
+  .close-button-mood {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    font-size: 26px;
+  }
+
+  .back-button-mood ion-icon,
+  .close-button-mood ion-icon {
+    font-size: 26px;
+  }
+
+  .toolbar-spacer {
+    width: 40px;
+    min-width: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mood-tracker-title {
+    font-size: 18px !important;
+    letter-spacing: -0.3px !important;
+  }
+
+  .back-button-mood,
+  .close-button-mood {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    font-size: 24px;
+  }
+
+  .back-button-mood ion-icon,
+  .close-button-mood ion-icon {
+    font-size: 24px;
+  }
+
+  .toolbar-spacer {
+    width: 38px;
+    min-width: 38px;
+  }
+
+  .mood-step {
+    padding: 24px 16px 32px;
+  }
+
+  .mood-icon {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 24px;
+  }
+
+  .mood-emoji-large {
+    width: 100px;
+    height: 100px;
+  }
+
+  .mood-step h3 {
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+
+  .mood-question span {
+    font-size: 16px;
+  }
+
+  .palabra-chip,
+  .area-chip {
+    height: 40px;
+    padding: 0 16px;
+    font-size: 14px;
+  }
+
+  .palabras-grid,
+  .areas-grid {
+    gap: 10px;
+  }
+}

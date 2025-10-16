@@ -1,10 +1,396 @@
-.home-content {
-background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
-  color: #fff;
+:root {
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+  --text-light: #FFFFFF;
+  --text-muted: #8B95A5;
+  --slider-purple: #8B5CF6;
+  --slider-orange: #F59E0B;
+  --button-gradient-start: #6366F1;
+  --button-gradient-end: #8B5CF6;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main-content {
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content-wrapper {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 80px 20px 20px 20px;
+  min-height: 100vh;
+  position: relative;
+  margin: 0 auto;
   text-align: center;
 }
 
-h2 {
-  margin-top: 40px;
-  font-size: 1.4rem;
+/* ✅ Botón de perfil flotante en la esquina superior izquierda */
+.profile-button-floating {
+  --color: #FFFFFF;
+  --background: rgba(255, 255, 255, 0.1);
+  --border-radius: 50%;
+  --padding-start: 0;
+  --padding-end: 0;
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  font-size: 32px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.profile-button-floating:hover {
+  --background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.08);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.profile-button-floating:active {
+  transform: scale(1.02);
+}
+
+/* ✅ Estilos del header */
+.page-header {
+  text-align: center;
+  margin-bottom: 32px;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-header h1,
+.page-header .page-title,
+h1.page-title {
+  color: #ffffff !important;
+  font-size: 32px !important;
+  font-weight: 700 !important;
+  text-align: left !important;
+  margin: 0 0 12px 0 !important;
+  padding: 0 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.5px !important;
+}
+
+.page-header p,
+.page-header .page-subtitle,
+p.page-subtitle {
+  color: #8B95A5 !important;
+  font-size: 20px !important;
+  font-weight: 400 !important;
+  text-align: left !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  letter-spacing: 0.2px !important;
+  line-height: 1.4 !important;
+}
+
+.emotion-card {
+  width: 100%;
+  max-width: 500px;
+  padding: 40px 32px 44px 32px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 24px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+   flex-direction: column;
+  align-items: center;
+}
+
+.brain-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 32px 0;
+  min-height: 280px;
+  position: relative;
+}
+
+.brain-image {
+  width: 260px;
+  height: auto;
+  max-height: 280px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* ✅ Animaciones de transición para el cerebro */
+.brain-image.fade-in {
+  opacity: 1;
+  transform: scale(1);
+  animation: fadeInScale 0.4s ease-out;
+}
+
+.brain-image.fade-out {
+  opacity: 0;
+  transform: scale(0.92);
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.88);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.emotion-label-container {
+  text-align: center;
+  margin-bottom: 36px;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emotion-label {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.3px;
+  animation: fadeInUp 0.3s ease-out;
+  transition: color 0.3s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slider-section {
+  padding: 0 12px;
+  margin-bottom: 40px;
+}
+
+.emotion-slider {
+  width: 100%;
+  height: 14px;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 12px;
+  outline: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: background 0.3s ease;
+}
+
+.emotion-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.emotion-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+}
+
+.emotion-slider::-webkit-slider-thumb:active {
+  transform: scale(1.2);
+}
+
+.emotion-slider::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+  border: none;
+  transition: transform 0.2s ease;
+}
+
+.emotion-slider::-moz-range-thumb:hover {
+  transform: scale(1.15);
+}
+
+.slider-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 14px;
+  padding: 0 6px;
+}
+
+.slider-label-start,
+.slider-label-end {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.button-section {
+  padding: 0 12px;
+}
+
+.journal-button {
+  --background: linear-gradient(135deg, var(--button-gradient-start), var(--button-gradient-end));
+  --border-radius: 12px;
+  --box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  --padding-top: 18px;
+  --padding-bottom: 18px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: none;
+  transition: all 0.3s ease;
+}
+
+.journal-button::part(native) {
+  background: linear-gradient(135deg, var(--button-gradient-start), var(--button-gradient-end));
+}
+
+.journal-button:hover {
+  --box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+  transform: translateY(-2px);
+}
+
+.journal-button:active {
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .content-wrapper {
+    padding: 150px 16px 20px 16px;
+    justify-content: flex-start;
+  }
+
+  .profile-button-floating {
+    width: 44px;
+    height: 44px;
+    top: 16px;
+    left: 16px;
+    font-size: 28px;
+  }
+
+  .page-header {
+    margin-bottom: 32px;
+    text-align: left;
+  }
+
+  .page-header h1,
+  .page-header .page-title,
+  h1.page-title {
+    font-size: 32px !important;
+    text-align: left !important;
+  }
+
+  .page-header p,
+  .page-header .page-subtitle,
+  p.page-subtitle {
+    font-size: 18px !important;
+  }
+
+  .emotion-card {
+    max-width: 100%;
+    padding: 32px 24px 36px 24px;
+  }
+
+  .brain-container {
+    margin: 0 0 24px 0;
+    min-height: 220px;
+  }
+
+  .brain-image {
+    width: 200px;
+    max-height: 220px;
+  }
+
+  .emotion-label {
+    font-size: 20px;
+  }
+
+  .emotion-label-container {
+    margin-bottom: 28px;
+    min-height: 30px;
+  }
+
+  .slider-section {
+    margin-bottom: 32px;
+    padding: 0 8px;
+  }
+
+  .emotion-slider {
+    height: 12px;
+  }
+
+  .emotion-slider::-webkit-slider-thumb {
+    width: 24px;
+    height: 24px;
+  }
+
+  .emotion-slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+  }
+
+  .slider-labels {
+    margin-top: 12px;
+  }
+
+  .slider-label-start,
+  .slider-label-end {
+    font-size: 13px;
+  }
+
+  .journal-button {
+    font-size: 16px;
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+  }
+
+  .button-section {
+    padding: 0 8px;
+  }
+}
+
+@media (min-width: 768px) {
+  .brain-container {
+    min-height: 320px;
+  }
+
+  .brain-image {
+    width: 300px;
+    max-height: 320px;
+  }
+
+  .emotion-card {
+    max-width: 550px;
+  }
 }

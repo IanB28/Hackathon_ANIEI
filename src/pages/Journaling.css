@@ -1,0 +1,626 @@
+:root {
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+  --background-gradient: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+  --text-light: #FFFFFF;
+  --text-muted: #8B95A5;
+  --button-gradient-start: #6366F1;
+  --button-gradient-end: #8B5CF6;
+  --user-message-bg: #6366F1;
+  --ai-message-bg: rgba(37, 52, 71, 0.8);
+  --accent-green: #10B981;
+  --background-dark: #1a2332;
+  --background-card: #253447;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+  background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%) fixed;
+}
+
+ion-app {
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+  background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%) fixed;
+}
+
+ion-page {
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+  background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%) fixed;
+}
+
+ion-content {
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+  background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%) fixed;
+}
+
+ion-content::part(scroll) {
+  background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%) fixed;
+}
+
+/* ✅ Header sin borde */
+.ion-no-border {
+  --border-width: 0;
+}
+
+/* ✅ Toolbar mejorado */
+.minimal-toolbar {
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+  --border-style: none;
+  --border-width: 0;
+  --min-height: 64px;
+  padding: 12px 16px;
+  background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%) fixed;
+}
+
+/* ✅ Contenedor del toolbar */
+.toolbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 12px;
+  background: transparent !important;
+}
+
+/* ✅ Título del toolbar */
+.toolbar-title {
+  flex: 1;
+  text-align: center;
+  color: #FFFFFF !important;
+  font-size: 32px !important;
+  font-weight: 700 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.5px !important;
+  background: transparent !important;
+}
+
+/* ✅ Espaciador para balancear el layout */
+.toolbar-spacer {
+  width: 44px;
+  min-width: 44px;
+  background: transparent !important;
+}
+
+/* ✅ Botón de cerrar (X) mejorado */
+.close-button {
+  --color: #FFFFFF;
+  --background: transparent;
+  --background-hover: rgba(255, 255, 255, 0.1);
+  --background-activated: rgba(255, 255, 255, 0.15);
+  --border-radius: 50%;
+  --padding-start: 0;
+  --padding-end: 0;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  margin: 0;
+  font-size: 28px;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.close-button::part(native) {
+  background: transparent !important;
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-button:hover {
+  --color: #EF4444;
+  --background-hover: rgba(239, 68, 68, 0.1);
+  transform: scale(1.05);
+}
+
+.close-button:active {
+  transform: scale(0.95);
+}
+
+.close-button ion-icon {
+  font-size: 28px;
+  background: transparent !important;
+}
+
+/* Eliminar estilos antiguos del header */
+.header-content,
+.user-section,
+.user-avatar,
+.user-name,
+.settings-button {
+  display: none !important;
+}
+
+.journaling-content {
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+  background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%) fixed !important;
+}
+
+.chat-container {
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: transparent !important;
+}
+
+/* Header del chat mejorado */
+.chat-header {
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+  background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+  padding: 24px 20px;
+  border-radius: 0 0 32px 32px;
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.25);
+  margin-bottom: 20px;
+}
+
+.assistant-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: transparent !important;
+}
+
+.assistant-avatar {
+  width: 60px;
+  height: 60px;
+  background: rgba(99, 102, 241, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(20px);
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.avatar-icon {
+  font-size: 32px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  background: transparent !important;
+}
+
+.assistant-details {
+  flex: 1;
+  background: transparent !important;
+}
+
+.assistant-name {
+  margin: 0;
+  color: var(--text-light);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: transparent !important;
+}
+
+.assistant-status {
+  margin: 6px 0 0;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent !important;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--accent-green);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+  box-shadow: 0 0 8px var(--accent-green);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(0.95);
+  }
+}
+
+/* Tarjeta de contexto emocional mejorada */
+.emotion-context-card {
+  background: rgba(37, 52, 71, 0.6);
+  border-radius: 20px;
+  padding: 18px;
+  margin: 0 16px 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  animation: slideDown 0.5s ease-out;
+  backdrop-filter: blur(10px);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.context-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(139, 149, 165, 0.2);
+  background: transparent !important;
+}
+
+.context-icon {
+  font-size: 22px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  background: transparent !important;
+}
+
+.context-title {
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-light);
+  opacity: 0.9;
+  background: transparent !important;
+}
+
+.context-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: transparent !important;
+}
+
+.context-row {
+  display: flex;
+  gap: 10px;
+  font-size: 14px;
+  background: transparent !important;
+}
+
+.context-label {
+  font-weight: 600;
+  color: var(--text-muted);
+  min-width: 80px;
+  background: transparent !important;
+}
+
+.context-value {
+  flex: 1;
+  color: var(--text-light);
+  background: rgba(37, 52, 71, 0.6);
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+/* Contenedor de mensajes */
+.messages-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: transparent !important;
+}
+
+.messages-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.messages-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.messages-container::-webkit-scrollbar-thumb {
+  background: rgba(139, 149, 165, 0.3);
+  border-radius: 10px;
+}
+
+.messages-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 149, 165, 0.5);
+}
+
+/* Mensajes mejorados */
+.message-wrapper {
+  display: flex;
+  margin-bottom: 4px;
+  animation: fadeIn 0.4s ease-out;
+  background: transparent !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.user-message {
+  justify-content: flex-end;
+  background: transparent !important;
+}
+
+.ai-message {
+  justify-content: flex-start;
+  background: transparent !important;
+}
+
+.message-bubble {
+  max-width: 75%;
+  padding: 14px 18px;
+  border-radius: 20px;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.user-message .message-bubble {
+  background: linear-gradient(135deg, var(--button-gradient-start) 0%, var(--button-gradient-end) 100%) !important;
+  color: var(--text-light);
+  border-bottom-right-radius: 6px;
+}
+
+.ai-message .message-bubble {
+  background: var(--ai-message-bg) !important;
+  color: var(--text-light);
+  border-bottom-left-radius: 6px;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.message-text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  background: transparent !important;
+}
+
+.message-time {
+  display: block;
+  font-size: 11px;
+  margin-top: 6px;
+  opacity: 0.7;
+  background: transparent !important;
+}
+
+.user-message .message-time {
+  text-align: right;
+  color: rgba(255, 255, 255, 0.85);
+  background: transparent !important;
+}
+
+.ai-message .message-time {
+  color: var(--text-muted);
+  background: transparent !important;
+}
+
+/* Indicador de escritura mejorado */
+.typing-indicator {
+  background: var(--ai-message-bg) !important;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  padding: 18px;
+  border-radius: 20px;
+  border-bottom-left-radius: 6px;
+  max-width: 80px;
+  backdrop-filter: blur(10px);
+}
+
+.typing-dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+}
+
+.typing-dots span {
+  width: 9px;
+  height: 9px;
+  background: var(--button-gradient-start);
+  border-radius: 50%;
+  animation: typing 1.4s infinite;
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.4);
+}
+
+.typing-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  30% {
+    transform: translateY(-12px);
+    opacity: 1;
+  }
+}
+
+/* Contenedor de input mejorado */
+.input-container {
+  border-top: 1px solid rgba(99, 102, 241, 0.2);
+  padding: 18px;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.input-wrapper-enhanced {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  background: rgba(26, 35, 50, 0.6);
+  border-radius: 28px;
+  padding: 10px 14px;
+  border: 2px solid rgba(99, 102, 241, 0.2);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.input-wrapper-enhanced:focus-within {
+  border-color: var(--button-gradient-start);
+  background: rgba(99, 102, 241, 0.05);
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+}
+
+.emoji-button {
+  --color: var(--text-muted);
+  min-width: 38px;
+  height: 38px;
+  margin: 0;
+}
+
+.emoji-button::part(native) {
+  background: transparent !important;
+}
+
+.emoji-button:hover {
+  --color: var(--button-gradient-start);
+}
+
+.chat-input-enhanced {
+  flex: 1;
+  --padding-start: 10px;
+  --padding-end: 10px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  font-size: 15px;
+  color: var(--text-light);
+  min-height: 38px;
+  max-height: 120px;
+}
+
+.chat-input-enhanced::part(native) {
+  background: transparent !important;
+}
+
+.send-button-enhanced {
+  --background: linear-gradient(135deg, var(--button-gradient-start) 0%, var(--button-gradient-end) 100%);
+  --border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  --box-shadow: 0 4px 16px rgba(99, 102, 241, 0.5);
+  transition: all 0.3s ease;
+}
+
+.send-button-enhanced::part(native) {
+  background: linear-gradient(135deg, var(--button-gradient-start) 0%, var(--button-gradient-end) 100%) !important;
+}
+
+.send-button-enhanced:hover {
+  --box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+  transform: scale(1.08);
+}
+
+.send-button-enhanced:active {
+  transform: scale(0.92);
+}
+
+.send-button-enhanced ion-icon {
+  font-size: 22px;
+  background: transparent !important;
+}
+
+.input-helper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+  background: transparent !important;
+}
+
+.char-counter {
+  font-size: 12px;
+  color: var(--text-muted);
+  background: transparent !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .minimal-toolbar {
+    --min-height: 60px;
+    padding: 10px 12px;
+  }
+
+  .toolbar-title {
+    font-size: 26px !important;
+    font-weight: bold;
+  }
+
+  .close-button {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    font-size: 26px;
+  }
+
+  .close-button ion-icon {
+    font-size: 26px;
+  }
+
+  .toolbar-spacer {
+    width: 40px;
+    min-width: 40px;
+  }
+
+  /* ...existing code... */
+}
+
+@media (max-width: 480px) {
+  .toolbar-title {
+    font-size: 18px !important;
+    letter-spacing: -0.3px !important;
+  }
+
+  .close-button {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    font-size: 24px;
+  }
+
+  .close-button ion-icon {
+    font-size: 24px;
+  }
+
+  .toolbar-spacer {
+    width: 38px;
+    min-width: 38px;
+  }
+}
