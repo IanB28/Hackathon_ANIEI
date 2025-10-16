@@ -9,7 +9,7 @@ import {
   IonIcon,
   IonCard,
 } from "@ionic/react";
-import { settingsOutline, logOutOutline } from "ionicons/icons";
+import { settingsOutline, logOutOutline, personCircleOutline, cameraOutline } from "ionicons/icons";
 import { useHistory } from "react-router-dom";
 import { obtenerPerfilUsuario, cerrarSesion } from "../services/authService";
 import "./Perfil.css";
@@ -53,23 +53,28 @@ const Perfil: React.FC = () => {
       <IonContent className="perfil-content" fullscreen>
         <div className="perfil-wrapper">
           <div className="avatar-section">
-            <IonAvatar className="perfil-avatar">
-              {userProfile.photoURL ? (
-                <img src={userProfile.photoURL} alt="Foto de perfil" />
-              ) : (
-                <div className="avatar-placeholder">
-                  {userProfile.displayName?.charAt(0).toUpperCase() ||
-                    userProfile.email?.charAt(0).toUpperCase() ||
-                    "?"}
-                </div>
-              )}
-            </IonAvatar>
+            <div className="avatar-container">
+              <IonAvatar className="perfil-avatar">
+                {userProfile.photoURL ? (
+                  <img src={userProfile.photoURL} alt="Foto de perfil" />
+                ) : (
+                  <div className="avatar-placeholder">
+                    <IonIcon icon={personCircleOutline} className="avatar-icon" />
+                  </div>
+                )}
+              </IonAvatar>
+              <button className="avatar-edit-btn">
+                <IonIcon icon={cameraOutline} />
+              </button>
+            </div>
 
             <h2 className="perfil-nombre">
               {userProfile.displayName ||
                 userProfile.email?.split("@")[0] ||
                 "Usuario"}
             </h2>
+
+            <p className="perfil-email">{userProfile.email}</p>
 
             <div className="perfil-stats">
               <div className="stat-item">

@@ -14,12 +14,10 @@ import { arrowBackOutline, closeOutline, informationCircleOutline } from 'ionico
 import { useHistory, useLocation } from 'react-router-dom';
 import {
   crearMoodEntry,
-  crearMoodEntryConFecha,
   generarPalabrasFallback,
   actualizarPalabrasSeleccionadas,
   actualizarAreasImpacto,
   puedeRegistrarMood,
-  guardarRegistroMood,  // ✅ Agregar esta importación
   CATEGORIAS_IMPACTO,
 } from '../services/moodService';
 import './MoodTracker.css';
@@ -29,28 +27,12 @@ interface LocationState {
   emotionId: number;
   emotionColor: string;
   emotionImage: string;
-  selectedDate?: string;
-  isHistoricalEntry?: boolean;
-  calendarContext?: {
-    year?: number;
-    month?: number;
-    day?: number;
-  };
 }
 
 const MoodTracker: React.FC = () => {
-  const location = useLocation<LocationState>();
   const history = useHistory();
-  
-  const { 
-    emotion, 
-    emotionId, 
-    emotionColor, 
-    emotionImage,
-    selectedDate,
-    isHistoricalEntry,
-    calendarContext
-  } = location.state || {};
+  const location = useLocation<LocationState>();
+  const { emotion, emotionId, emotionColor, emotionImage } = location.state || {};
 
   const [paso, setPaso] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -77,27 +59,17 @@ const MoodTracker: React.FC = () => {
   const inicializarMoodTracker = async () => {
     setLoading(true);
     try {
-      // Si es registro histórico, usar la fecha seleccionada
-      const registrationDate = selectedDate ? new Date(selectedDate) : new Date();
-      
       const { puede, registrosHoy } = await puedeRegistrarMood();
       
-      if (!puede && !isHistoricalEntry) {
-        setMensajeAlerta(`Ya completaste tus registros de hoy (${registrosHoy}/7). Vuelve mañana para registrar más.`);
+      if (!puede) {
+        setMensajeAlerta(`Ya completaste tus 3 registros de hoy (${registrosHoy}/3). Vuelve mañana para registrar más.`);
         setMostrarAlerta(true);
         return;
       }
 
-      // Crear entry con la fecha correcta
-      const id = await crearMoodEntryConFecha(
-        emotionId, 
-        emotion, 
-        emotionColor,
-        registrationDate
-      );
-      
+      const id = await crearMoodEntry(emotionId, emotion, emotionColor);
       setEntryId(id);
-      console.log('📝 Entry creada con ID:', id, 'para fecha:', registrationDate.toISOString());
+      console.log('📝 Entry creada con ID:', id);
 
       const palabrasCargadas = generarPalabrasFallback(emotion);
       setTodasLasPalabras(palabrasCargadas);
@@ -123,6 +95,7 @@ const MoodTracker: React.FC = () => {
     history.replace('/home');
   };
 
+  // ✅ Nueva función para ir a Journaling con Stud-IA
   const handleIrAJournaling = () => {
     setMostrarAlerta(false);
     history.replace({
@@ -192,47 +165,27 @@ const MoodTracker: React.FC = () => {
 
   const handleFinalizar = async () => {
     if (areasSeleccionadas.length === 0) {
-      alert('Por favor selecciona al menos un área');
+      alert('Por favor selecciona al menos un área de impacto');
       return;
     }
 
     setLoading(true);
-    
     try {
-      console.log('💾 Finalizando registro...');
+      console.log('💾 ENVIANDO ÁREAS A FIREBASE:');
       console.log('   - Entry ID:', entryId);
       console.log('   - Áreas seleccionadas:', areasSeleccionadas);
+      console.log('   - Cantidad:', areasSeleccionadas.length);
       
       await actualizarAreasImpacto(entryId, areasSeleccionadas);
       
-      console.log('✅ Registro completado exitosamente');
+      const { registrosHoy } = await puedeRegistrarMood();
       
-      // Si vino del calendario, regresar al calendario
-      if (calendarContext && calendarContext.year !== undefined) {
-        history.replace({
-          pathname: '/calendario',
-          state: {
-            refreshCalendar: true,
-            year: calendarContext.year,
-            month: calendarContext.month
-          }
-        });
-      } else {
-        // Si no, ir a Journaling
-        history.replace({
-          pathname: '/journaling',
-          state: {
-            entryId: entryId,
-            emotion: emotion,
-            emotionColor: emotionColor,
-            palabrasSeleccionadas: palabrasSeleccionadas,
-            areasSeleccionadas: areasSeleccionadas,
-          }
-        });
-      }
+      console.log('✅ Registro completado exitosamente');
+      setMensajeAlerta(`✅ Registro completado (${registrosHoy}/3 de hoy)`);
+      setMostrarAlerta(true);
     } catch (error) {
       console.error('❌ Error al finalizar:', error);
-      alert('Error al guardar el registro. Por favor, intenta de nuevo.');
+      alert('Error al finalizar. Intenta de nuevo.');
     } finally {
       setLoading(false);
     }
@@ -387,6 +340,7 @@ const MoodTracker: React.FC = () => {
         )}
       </IonContent>
 
+      {/* ✅ Alerta con botones personalizados */}
       <IonAlert
         isOpen={mostrarAlerta}
         onDidDismiss={handleCerrarAlerta}

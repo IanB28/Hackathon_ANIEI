@@ -97,7 +97,7 @@ export const puedeRegistrarMood = async (): Promise<{ puede: boolean; registrosH
     const momentosPendientes = todosMomentos.filter(m => !momentosRegistrados.includes(m));
 
     return {
-      puede: registrosHoy < 7,
+      puede: registrosHoy < 5,
       registrosHoy,
       momentosPendientes,
     };
