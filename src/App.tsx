@@ -14,6 +14,7 @@ import { ellipse, square, triangle } from 'ionicons/icons';
 import Home from './pages/Home';
 import Calendario from './pages/Calendario';
 import Estudio from './pages/Estudio';
+import Journaling from './pages/Journaling';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -52,6 +53,9 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/">
             <Home />
+          </Route>
+           <Route exact path="/journaling">
+            <Journaling />
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
