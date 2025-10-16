@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .calendar-content {
   --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
   --padding-start: 16px;
@@ -591,3 +592,15 @@
   margin-top: 20px;
   font-size: 16px;
 }
+=======
+/* ============================================
+   CALENDARIO - ESTILOS
+   ============================================ */
+.calendario-page {
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+}
+
+.calendario-content {
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+}
+>>>>>>> e1bc9314d2c34c76a98369182725b1ed64e3607d

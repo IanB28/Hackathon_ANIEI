@@ -1,0 +1,349 @@
+/* ============================================
+   MODAL FORMULARIO - ESTILOS MEJORADOS
+   ============================================ */
+.modal-estudio.formulario-modal ion-content {
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+  padding-bottom: 100px;
+}
+
+/* Header del modal */
+.modal-estudio ion-header ion-toolbar {
+  --background: rgba(48, 73, 112, 0.6);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-estudio ion-title {
+  color: #fff;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.5px;
+}
+
+.modal-estudio ion-title ion-icon {
+  color: #FFFFFF;
+}
+
+/* Contenedor del formulario */
+.form-container {
+  padding: 24px 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Items del formulario */
+.modal-estudio ion-item {
+  --background: transparent;
+  --border-color: rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  margin-bottom: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  overflow: visible;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --inner-padding-end: 0;
+  min-height: 72px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.modal-estudio ion-item:last-child {
+  margin-bottom: 0;
+}
+
+.modal-estudio ion-item:hover {
+  --background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Labels */
+.modal-estudio ion-label {
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  margin-bottom: 6px !important;
+  text-transform: none;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+/* Inputs */
+.modal-estudio ion-input,
+.modal-estudio ion-select,
+.modal-estudio ion-textarea {
+  --color: #fff !important;
+  --placeholder-color: rgba(255, 255, 255, 0.4) !important;
+  --placeholder-opacity: 1 !important;
+  background: transparent;
+  border-radius: 10px;
+  padding: 4px 0;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  min-height: 40px;
+  margin-top: 2px;
+}
+
+.modal-estudio ion-input::part(native),
+.modal-estudio ion-textarea::part(native) {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+}
+
+.modal-estudio ion-input:focus,
+.modal-estudio ion-textarea:focus {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Select específico */
+.modal-estudio ion-select {
+  --placeholder-opacity: 1;
+  max-width: 100%;
+  min-height: 40px;
+  width: 100%;
+  padding: 0 !important;
+  margin-top: 2px;
+}
+
+.modal-estudio ion-select::part(container) {
+  padding: 0;
+}
+
+.modal-estudio ion-select::part(text) {
+  padding-left: 0;
+  padding-right: 0;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  line-height: 1.4;
+}
+
+.modal-estudio ion-select::part(icon) {
+  opacity: 0.6;
+  margin-left: 8px;
+  margin-right: 0;
+}
+
+/* Textarea específico */
+.modal-estudio ion-textarea {
+  min-height: 80px;
+}
+
+/* Botón guardar mejorado */
+.btn-guardar {
+  --background: linear-gradient(135deg, rgba(76, 175, 80, 0.6) 0%, rgba(56, 142, 60, 0.6) 100%);
+  --background-hover: linear-gradient(135deg, rgba(76, 175, 80, 0.8) 0%, rgba(56, 142, 60, 0.8) 100%);
+  --background-activated: linear-gradient(135deg, rgba(76, 175, 80, 0.9) 0%, rgba(56, 142, 60, 0.9) 100%);
+  color: #fff;
+  border-radius: 14px;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.3px;
+  text-transform: none;
+  height: 56px;
+  margin-top: 20px;
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+  transition: all 0.3s ease;
+}
+
+.btn-guardar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(76, 175, 80, 0.5);
+}
+
+.btn-guardar:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 16px rgba(76, 175, 80, 0.4);
+}
+
+/* Contenedor del formulario */
+.modal-estudio .form-container {
+  padding: 20px;
+}
+
+/* Secciones del formulario */
+.form-section {
+  margin-bottom: 32px;
+  background: rgba(48, 73, 112, 0.25);
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.form-section-title {
+  color: #fff;
+  font-size: 17px;
+  font-weight: 800;
+  margin-bottom: 20px;
+  padding-left: 0;
+  letter-spacing: -0.3px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-section-title ion-icon {
+  color: #FFFFFF;
+  font-size: 20px;
+}
+
+/* Grid de pausas */
+.pausas-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.pausas-grid ion-item {
+  min-height: 78px;
+  height: 100%;
+  align-items: flex-start;
+}
+
+.pausas-grid ion-label {
+  font-size: 11px;
+  white-space: normal;
+  line-height: 1.3;
+  max-width: 100%;
+}
+
+.pausas-grid ion-input {
+  min-height: 40px;
+  width: 100%;
+}
+
+@media (max-width: 430px) {
+  .pausas-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .pausas-grid ion-item {
+    min-height: 72px;
+  }
+  
+  .pausas-grid ion-label {
+    font-size: 12px;
+  }
+}
+
+/* Descripción del método */
+.metodo-descripcion-card {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.25) 0%, rgba(88, 28, 135, 0.2) 100%);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 20px;
+  margin-top: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.2);
+}
+
+.metodo-descripcion-card .metodo-icon {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.4) 0%, rgba(124, 58, 237, 0.5) 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 22px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.metodo-descripcion-card strong {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  display: block;
+  margin-bottom: 8px;
+  letter-spacing: -0.2px;
+}
+
+.metodo-descripcion-card p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Alerta de flowtime */
+.flowtime-alert {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.1) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 14px;
+  padding: 14px;
+  margin-top: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  backdrop-filter: blur(10px);
+}
+
+.flowtime-alert ion-icon {
+  color: #60a5fa;
+  font-size: 20px;
+  min-width: 20px;
+  margin-top: 2px;
+}
+
+.flowtime-alert p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.flowtime-alert strong {
+  color: #60a5fa;
+  font-weight: 700;
+}
+
+/* Responsive */
+@media (max-width: 430px) {
+  .form-container {
+    padding: 20px 16px;
+  }
+
+  .form-section {
+    padding: 16px;
+    margin-bottom: 24px;
+  }
+
+  .form-section-title {
+    font-size: 16px;
+  }
+
+  .modal-estudio ion-item {
+    border-radius: 12px;
+    margin-bottom: 10px;
+  }
+
+  .btn-guardar {
+    height: 52px;
+    font-size: 15px;
+    border-radius: 12px;
+  }
+
+  .metodo-descripcion-card {
+    padding: 14px;
+  }
+}

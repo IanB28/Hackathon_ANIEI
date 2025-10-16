@@ -10,7 +10,7 @@ import {
 } from "@ionic/react";
 import { useState, useRef, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { settingsOutline, sendOutline, happyOutline, close } from "ionicons/icons";
+import { settingsOutline, sendOutline, happyOutline, close, chevronDownOutline, chevronUpOutline } from "ionicons/icons";
 import "./Journaling.css";
 import { askAI } from '../services/aiService';
 
@@ -37,14 +37,13 @@ export default function Journaling() {
   const [userInput, setUserInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [mostrarContexto, setMostrarContexto] = useState(true); // ✅ Estado para mostrar/ocultar
   const contentRef = useRef<HTMLIonContentElement>(null);
 
   useEffect(() => {
-    // ✅ Inicializar conversación con contexto personalizado
     if (palabrasSeleccionadas && palabrasSeleccionadas.length > 0) {
       iniciarConversacionPersonalizada();
     } else {
-      // Mensaje genérico si no hay contexto
       setMessages([
         {
           id: 0,
@@ -97,7 +96,12 @@ export default function Journaling() {
   };
 
   const handleClose = () => {
-    history.goBack(); // Regresa a la página anterior
+    history.goBack();
+  };
+
+  // ✅ Toggle para mostrar/ocultar contexto
+  const toggleContexto = () => {
+    setMostrarContexto(!mostrarContexto);
   };
 
   const handleSendClick = async () => {
@@ -121,7 +125,6 @@ export default function Journaling() {
         .map(msg => `${msg.sender === 'user' ? 'Usuario' : 'Stud-IA'}: ${msg.text}`)
         .join('\n');
 
-      // ✅ Contexto personalizado basado en el registro de mood
       let contextoEmocional = '';
       if (palabrasSeleccionadas && palabrasSeleccionadas.length > 0) {
         const palabrasTexto = palabrasSeleccionadas.join(', ');
@@ -158,7 +161,6 @@ Stud-IA:`;
       
       let respuestaFinal = respuesta.trim();
       
-      // Limitar longitud
       if (respuestaFinal.length > 200) {
         const sentences = respuestaFinal.split(/[.!?]+/).filter(s => s.trim());
         if (sentences.length > 3) {
@@ -209,7 +211,7 @@ Stud-IA:`;
             >
               <IonIcon slot="icon-only" icon={close} />
             </IonButton>
-            <h1 className="toolbar-title">Registro de estado de ánimo</h1>
+            <h1 className="toolbar-title">Chat con Stud-IA</h1>
             <div className="toolbar-spacer"></div>
           </div>
         </IonToolbar>
@@ -231,29 +233,36 @@ Stud-IA:`;
             </div>
           </div>
 
-          {/* ✅ Mostrar resumen del estado emocional si existe */}
+          {/* ✅ Tarjeta colapsable del estado emocional */}
           {palabrasSeleccionadas && palabrasSeleccionadas.length > 0 && (
-            <div className="emotion-context-card">
-              <div className="context-header">
+            <div className={`emotion-context-card ${mostrarContexto ? 'expanded' : 'collapsed'}`}>
+              <div className="context-header" onClick={toggleContexto} style={{ cursor: 'pointer' }}>
                 <span className="context-icon">💭</span>
                 <span className="context-title">Tu estado emocional</span>
+                <IonIcon 
+                  icon={mostrarContexto ? chevronUpOutline : chevronDownOutline} 
+                  className="toggle-icon"
+                />
               </div>
-              <div className="context-content">
-                <div className="context-row">
-                  <span className="context-label">Estado:</span>
-                  <span className="context-value" style={{ color: emotionColor }}>{emotion}</span>
-                </div>
-                <div className="context-row">
-                  <span className="context-label">Emociones:</span>
-                  <span className="context-value">{palabrasSeleccionadas.slice(0, 4).join(', ')}</span>
-                </div>
-                {areasSeleccionadas && areasSeleccionadas.length > 0 && (
+              
+              {mostrarContexto && (
+                <div className="context-content">
                   <div className="context-row">
-                    <span className="context-label">Áreas:</span>
-                    <span className="context-value">{areasSeleccionadas.slice(0, 3).join(', ')}</span>
+                    <span className="context-label">Estado:</span>
+                    <span className="context-value" style={{ color: emotionColor }}>{emotion}</span>
                   </div>
-                )}
-              </div>
+                  <div className="context-row">
+                    <span className="context-label">Emociones:</span>
+                    <span className="context-value">{palabrasSeleccionadas.slice(0, 4).join(', ')}</span>
+                  </div>
+                  {areasSeleccionadas && areasSeleccionadas.length > 0 && (
+                    <div className="context-row">
+                      <span className="context-label">Áreas:</span>
+                      <span className="context-value">{areasSeleccionadas.slice(0, 3).join(', ')}</span>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           )}
 

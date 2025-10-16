@@ -1,6 +1,6 @@
 import { IonApp, IonRouterOutlet, IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { Route } from 'react-router-dom';
+import { Route ,Redirect} from 'react-router-dom';
 import { homeOutline, home, calendarOutline, calendar, bookOutline, book } from 'ionicons/icons';
 import { useLocation } from 'react-router-dom';
 
@@ -101,8 +101,8 @@ const App: React.FC = () => (
             <MoodTracker />
           </Route>
           <Route exact path="/">
-            <Home />
-          </Route>
+      <Login/>
+    </Route>
            <Route exact path="/journaling">
             <Journaling />
           </Route>

@@ -1,0 +1,252 @@
+/* ============================================
+   SENTIMIENTOS - ESTILOS MEJORADOS
+   ============================================ */
+
+/* Modal de sentimientos */
+.modal-sentimiento ion-header ion-toolbar {
+  --background: rgba(48, 73, 112, 0.6);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-sentimiento ion-title {
+  color: #fff;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.3px;
+}
+
+.modal-sentimiento ion-content {
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+}
+
+/* Título principal */
+.sentimiento-titulo {
+  text-align: center;
+  padding: 24px 20px 16px;
+  color: #fff;
+}
+
+.sentimiento-titulo h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.3px;
+}
+
+.sentimiento-titulo p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* Contenedor de opciones */
+.opciones-sentimientos {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Botones de sentimiento mejorados */
+.sentimiento-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 24px;
+  backdrop-filter: blur(15px);
+  color: #fff;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 28px 24px;
+  min-width: 140px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.sentimiento-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sentimiento-btn:hover::before {
+  opacity: 1;
+}
+
+.sentimiento-btn:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+.sentimiento-btn:active {
+  transform: translateY(-4px) scale(1.02);
+}
+
+/* Colores de emoción mejorados */
+.sentimiento-btn[style*="#6BCB77"] {
+  background: linear-gradient(135deg, rgba(107, 203, 119, 0.4) 0%, rgba(76, 175, 80, 0.3) 100%);
+  border-color: rgba(107, 203, 119, 0.5);
+}
+
+.sentimiento-btn[style*="#6BCB77"]:hover {
+  background: linear-gradient(135deg, rgba(107, 203, 119, 0.5) 0%, rgba(76, 175, 80, 0.4) 100%);
+  box-shadow: 0 12px 32px rgba(107, 203, 119, 0.4);
+}
+
+.sentimiento-btn[style*="#FFD93D"] {
+  background: linear-gradient(135deg, rgba(255, 217, 61, 0.4) 0%, rgba(251, 191, 36, 0.3) 100%);
+  border-color: rgba(255, 217, 61, 0.5);
+  color: #1f2937;
+}
+
+.sentimiento-btn[style*="#FFD93D"]:hover {
+  background: linear-gradient(135deg, rgba(255, 217, 61, 0.5) 0%, rgba(251, 191, 36, 0.4) 100%);
+  box-shadow: 0 12px 32px rgba(255, 217, 61, 0.4);
+}
+
+.sentimiento-btn[style*="#FF6B6B"] {
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.4) 0%, rgba(239, 68, 68, 0.3) 100%);
+  border-color: rgba(255, 107, 107, 0.5);
+}
+
+.sentimiento-btn[style*="#FF6B6B"]:hover {
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.5) 0%, rgba(239, 68, 68, 0.4) 100%);
+  box-shadow: 0 12px 32px rgba(255, 107, 107, 0.4);
+}
+
+/* Emoji con animación mejorada */
+.emoji-grande {
+  font-size: 64px;
+  animation: bounce 2s ease-in-out infinite;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-12px) scale(1.05);
+  }
+}
+
+/* Texto del sentimiento */
+.sentimiento-texto {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-align: center;
+}
+
+.sentimiento-descripcion {
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0.8;
+  text-align: center;
+  margin-top: 4px;
+}
+
+/* Indicador de selección */
+.sentimiento-btn.selected {
+  border-width: 3px;
+  transform: translateY(-8px) scale(1.08);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+}
+
+.sentimiento-btn.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Botón de confirmación */
+.btn-confirmar-sentimiento {
+  --background: linear-gradient(135deg, rgba(168, 85, 247, 0.6) 0%, rgba(124, 58, 237, 0.6) 100%);
+  --background-hover: linear-gradient(135deg, rgba(168, 85, 247, 0.8) 0%, rgba(124, 58, 237, 0.8) 100%);
+  color: #fff;
+  border-radius: 14px;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-weight: 700;
+  font-size: 16px;
+  height: 56px;
+  margin: 24px 20px;
+  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
+  transition: all 0.3s ease;
+}
+
+.btn-confirmar-sentimiento:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(168, 85, 247, 0.5);
+}
+
+/* Mensaje de motivación */
+.mensaje-motivacional {
+  background: rgba(48, 73, 112, 0.3);
+  border-radius: 16px;
+  padding: 20px;
+  margin: 20px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.mensaje-motivacional p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 430px) {
+  .opciones-sentimientos {
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .sentimiento-btn {
+    min-width: 120px;
+    padding: 24px 20px;
+  }
+
+  .emoji-grande {
+    font-size: 56px;
+  }
+
+  .sentimiento-texto {
+    font-size: 15px;
+  }
+
+  .btn-confirmar-sentimiento {
+    height: 52px;
+    font-size: 15px;
+    margin: 20px 16px;
+  }
+}

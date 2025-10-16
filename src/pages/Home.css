@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 :root {
   --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
   --text-light: #FFFFFF;
@@ -36,6 +37,11 @@
   min-height: 100vh;
   position: relative;
   margin: 0 auto;
+=======
+.home-content {
+  background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+  color: #fff;
+>>>>>>> e1bc9314d2c34c76a98369182725b1ed64e3607d
   text-align: center;
 }
 

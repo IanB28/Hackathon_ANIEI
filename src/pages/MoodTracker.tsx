@@ -208,15 +208,17 @@ const MoodTracker: React.FC = () => {
           <div className="mood-tracker-header">
             {paso > 1 ? (
               <IonButton fill="clear" className="back-button-mood" onClick={() => setPaso(paso - 1)}>
-                <IonIcon slot="icon-only" icon={arrowBackOutline} />
+                <IonIcon icon={arrowBackOutline} />
               </IonButton>
             ) : (
               <IonButton fill="clear" className="close-button-mood" onClick={() => history.replace('/home')}>
-                <IonIcon slot="icon-only" icon={closeOutline} />
+                <IonIcon icon={closeOutline} />
               </IonButton>
             )}
-            <h1 className="mood-tracker-title">Registro de estado de ánimo</h1>
-            <div className="toolbar-spacer"></div>
+            <div className="mood-header-center">
+              <span className="mood-step-indicator">Paso {paso} de 2</span>
+            </div>
+            <div className="mood-header-spacer"></div>
           </div>
         </IonToolbar>
       </IonHeader>
@@ -353,14 +355,21 @@ const MoodTracker: React.FC = () => {
                 {
                   text: 'Más tarde',
                   role: 'cancel',
+                  cssClass: 'alert-button-cancel',
                   handler: handleCerrarAlerta
                 },
                 {
                   text: 'Hablar con Stud-IA',
+                  cssClass: 'alert-button-confirm',
                   handler: handleIrAJournaling
                 }
               ]
-            : ['OK']
+            : [
+                {
+                  text: 'OK',
+                  handler: handleCerrarAlerta
+                }
+              ]
         }
       />
     </IonPage>

@@ -39,8 +39,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 8px 12px;
   width: 100%;
-  gap: 12px;
+  max-width: 100%;
   background: transparent !important;
 }
 
@@ -304,6 +305,22 @@
   --background: rgba(139, 149, 165, 0.3);
   --box-shadow: none;
   opacity: 0.5;
+}
+
+/* Indicador de paso */
+.mood-step-indicator {
+  color: var(--text-light);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  background: rgba(99, 102, 241, 0.2);
+  border: 1.5px solid rgba(99, 102, 241, 0.4);
+  border-radius: 16px;
+  padding: 6px 14px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
 }
 
 /* Responsive */
