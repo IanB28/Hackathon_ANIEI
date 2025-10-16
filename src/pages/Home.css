@@ -1,0 +1,10 @@
+.home-content {
+  background: linear-gradient(135deg, #1E2A78, #6A0DAD);
+  color: #fff;
+  text-align: center;
+}
+
+h2 {
+  margin-top: 40px;
+  font-size: 1.4rem;
+}
