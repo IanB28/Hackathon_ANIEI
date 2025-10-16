@@ -197,7 +197,7 @@ const Estadisticas: FC<EstadisticasProps> = ({
             <div className="sentimientos-visual">
               {/* Bien */}
               <div className="sentimiento-bar">
-                <div className="sentimiento-emoji">😊</div>
+                <div className="sentimiento-emoji" style={{ fontSize: '40px', marginBottom: '8px' }}>😊</div>
                 <div className="sentimiento-barra">
                   <div 
                     className="sentimiento-fill bien" 
@@ -207,14 +207,14 @@ const Estadisticas: FC<EstadisticasProps> = ({
                 <div className="sentimiento-porcentaje">
                   {Math.round(stats.sentimientoPorcentajes.bien)}%
                 </div>
-                <div style={{ fontSize: '12px', marginTop: '4px', opacity: 0.7 }}>
+                <div style={{ fontSize: '14px', marginTop: '8px', opacity: 0.9, fontWeight: '600', color: '#FFFFFF' }}>
                   Bien
                 </div>
               </div>
 
               {/* Normal */}
               <div className="sentimiento-bar">
-                <div className="sentimiento-emoji">😐</div>
+                <div className="sentimiento-emoji" style={{ fontSize: '40px', marginBottom: '8px' }}>😐</div>
                 <div className="sentimiento-barra">
                   <div 
                     className="sentimiento-fill normal" 
@@ -224,14 +224,14 @@ const Estadisticas: FC<EstadisticasProps> = ({
                 <div className="sentimiento-porcentaje">
                   {Math.round(stats.sentimientoPorcentajes.normal)}%
                 </div>
-                <div style={{ fontSize: '12px', marginTop: '4px', opacity: 0.7 }}>
+                <div style={{ fontSize: '14px', marginTop: '8px', opacity: 0.9, fontWeight: '600', color: '#FFFFFF' }}>
                   Normal
                 </div>
               </div>
 
               {/* Mal */}
               <div className="sentimiento-bar">
-                <div className="sentimiento-emoji">😞</div>
+                <div className="sentimiento-emoji" style={{ fontSize: '40px', marginBottom: '8px' }}>☹️</div>
                 <div className="sentimiento-barra">
                   <div 
                     className="sentimiento-fill mal" 
@@ -241,7 +241,7 @@ const Estadisticas: FC<EstadisticasProps> = ({
                 <div className="sentimiento-porcentaje">
                   {Math.round(stats.sentimientoPorcentajes.mal)}%
                 </div>
-                <div style={{ fontSize: '12px', marginTop: '4px', opacity: 0.7 }}>
+                <div style={{ fontSize: '14px', marginTop: '8px', opacity: 0.9, fontWeight: '600', color: '#FFFFFF' }}>
                   Mal
                 </div>
               </div>

@@ -189,17 +189,19 @@
 }
 
 .sentimiento-emoji {
-  font-size: 36px;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
-  animation: bounce-emoji 2s ease-in-out infinite;
+  font-size: 40px;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+  animation: bounce-emoji 3s ease-in-out infinite;
+  line-height: 1;
+  display: block;
 }
 
 @keyframes bounce-emoji {
   0%, 100% {
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
   50% {
-    transform: translateY(-6px);
+    transform: translateY(-8px) scale(1.1);
   }
 }
 
