@@ -1,0 +1,139 @@
+.perfil-header {
+    --background: transparent;
+}
+
+.perfil-toolbar {
+    --background: transparent;
+    --border-width: 0;
+}
+
+.perfil-content {
+    --background: linear-gradient(180deg, #1a2f4a 0%, #2d4a6f 100%);
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+}
+
+.header-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.header-title {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 500;
+    flex: 1;
+    margin-left: 10px;
+}
+
+.settings-btn {
+    --padding-start: 8px;
+    --padding-end: 8px;
+}
+
+.perfil-wrapper {
+    padding: 20px;
+    min-height: 100%;
+}
+
+.avatar-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.perfil-avatar {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 20px;
+    border: 4px solid rgba(255, 255, 255, 0.2);
+}
+
+.avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.perfil-nombre {
+    color: white;
+    font-size: 1.5rem;
+    margin: 0 0 20px 0;
+    font-weight: 500;
+}
+
+.perfil-stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    font-size: 0.95rem;
+}
+
+.flag-icon {
+    width: 24px;
+    height: 16px;
+    border-radius: 2px;
+}
+
+.rachas-card,
+.logros-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: none;
+}
+
+.rachas-card h3,
+.logros-card h3 {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    margin: 0 0 20px 0;
+    font-weight: 600;
+}
+
+.rachas-container,
+.logros-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.racha-icon,
+.medal-icon {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.racha-icon.inactive,
+.medal-icon.inactive {
+    opacity: 0.3;
+}
+
+.logout-btn {
+    margin-top: 20px;
+    --border-radius: 12px;
+}
