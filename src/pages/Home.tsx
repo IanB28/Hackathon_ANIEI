@@ -75,8 +75,21 @@ export default function Home() {
     }
   };
 
-  const handleNavigateToJournaling = () => {
-    history.push("/journaling");
+  const handleNavigateToMoodTracker = () => {
+    history.push({
+      pathname: "/moodtracker",
+      state: {
+        emotion: currentEmotion.label,
+        emotionId: currentEmotion.id,
+        emotionColor: currentEmotion.color,
+        emotionImage: currentEmotion.image
+      }
+    });
+  };
+
+  // ✅ Nueva función para navegar al perfil
+  const handleNavigateToProfile = () => {
+    history.push("/perfil");
   };
 
   return (
@@ -84,7 +97,7 @@ export default function Home() {
       <IonHeader>
         <IonToolbar className="minimal-toolbar">
           <div className="header-content">
-            <div className="user-section">
+            <div className="user-section" onClick={handleNavigateToProfile} style={{ cursor: 'pointer' }}>
               <IonAvatar className="user-avatar">
                 <img src="https://ionicframework.com/docs/img/demos/avatar.svg" alt="User" />
               </IonAvatar>
@@ -148,9 +161,9 @@ export default function Home() {
               <IonButton 
                 expand="block" 
                 className="journal-button"
-                onClick={handleNavigateToJournaling}
+                onClick={handleNavigateToMoodTracker}
               >
-                <span>Registrar mi día</span>
+                <span>Siguiente</span>
                 <IonIcon icon={arrowForwardOutline} slot="end" />
               </IonButton>
             </div>
