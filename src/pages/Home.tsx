@@ -3,11 +3,20 @@ import {
   IonContent,
   IonButton,
   IonIcon,
+  IonToast,
 } from "@ionic/react";
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { arrowForwardOutline, personCircleOutline } from "ionicons/icons";
+import { useState, useEffect } from "react";
+import { useHistory, useLocation } from "react-router-dom";
+import { arrowForwardOutline, personCircleOutline, calendarOutline } from "ionicons/icons";
 import "./Home.css";
+
+interface LocationState {
+  selectedDate?: string;
+  isHistoricalEntry?: boolean;
+  year?: number;
+  month?: number;
+  day?: number;
+}
 
 export default function Home() {
   const emotionStates = [
@@ -57,9 +66,45 @@ export default function Home() {
 
   const [sliderValue, setSliderValue] = useState(3);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [isHistoricalEntry, setIsHistoricalEntry] = useState(false);
+  const [calendarContext, setCalendarContext] = useState<{
+    year?: number;
+    month?: number;
+    day?: number;
+  }>({
+    year: undefined,
+    month: undefined,
+    day: undefined
+  });
+  
   const history = useHistory();
+  const location = useLocation<LocationState>();
 
   const currentEmotion = emotionStates[sliderValue];
+
+  // Cargar fecha seleccionada desde el calendario
+  useEffect(() => {
+    if (location.state?.selectedDate) {
+      const date = new Date(location.state.selectedDate);
+      setSelectedDate(date);
+      setIsHistoricalEntry(location.state.isHistoricalEntry || false);
+      
+      // Guardar contexto del calendario para regresar
+      if (location.state.year !== undefined && 
+          location.state.month !== undefined && 
+          location.state.day !== undefined) {
+        setCalendarContext({
+          year: location.state.year,
+          month: location.state.month,
+          day: location.state.day
+        });
+      }
+      
+      setShowToast(true);
+    }
+  }, [location.state]);
 
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(e.target.value);
@@ -79,13 +124,32 @@ export default function Home() {
         emotion: currentEmotion.label,
         emotionId: currentEmotion.id,
         emotionColor: currentEmotion.color,
-        emotionImage: currentEmotion.image
+        emotionImage: currentEmotion.image,
+        selectedDate: selectedDate.toISOString(),
+        isHistoricalEntry: isHistoricalEntry,
+        calendarContext: calendarContext // Pasar contexto
       }
     });
   };
 
   const handleNavigateToProfile = () => {
     history.push("/perfil");
+  };
+
+  const formatSelectedDate = () => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const compareDate = new Date(selectedDate);
+    compareDate.setHours(0, 0, 0, 0);
+
+    if (compareDate.getTime() === today.getTime()) {
+      return "Hoy";
+    }
+
+    const dayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    const monthNames = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+    
+    return `${dayNames[selectedDate.getDay()]}, ${selectedDate.getDate()} ${monthNames[selectedDate.getMonth()]}`;
   };
 
   return (
@@ -103,7 +167,20 @@ export default function Home() {
 
           <div className="page-header">
             <h1 className="page-title">Estado emocional</h1>
-            <p className="page-subtitle">¿Cómo te sientes el día de hoy?</p>
+            <p className="page-subtitle">
+              {isHistoricalEntry 
+                ? `¿Cómo te sentiste el ${formatSelectedDate()}?`
+                : `¿Cómo te sientes el día de hoy?`
+              }
+            </p>
+            
+            {/* Indicador de fecha seleccionada */}
+            {(isHistoricalEntry || location.state?.selectedDate) && (
+              <div className="date-indicator">
+                <IonIcon icon={calendarOutline} />
+                <span>{formatSelectedDate()}</span>
+              </div>
+            )}
           </div>
 
           <div className="emotion-card">
@@ -159,6 +236,18 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        <IonToast
+          isOpen={showToast}
+          onDidDismiss={() => setShowToast(false)}
+          message={isHistoricalEntry 
+            ? `Registrando estado para: ${formatSelectedDate()}`
+            : "Registrando estado de hoy"
+          }
+          duration={2000}
+          position="top"
+          color="primary"
+        />
       </IonContent>
     </IonPage>
   );

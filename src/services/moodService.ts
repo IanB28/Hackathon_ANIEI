@@ -21,6 +21,7 @@ export interface MoodEntry {
   dia: string;
   hora: string;
   momentoDia: 'mañana' | 'tarde' | 'noche';
+  esDiaActual?: boolean; // ✅ Nuevo campo
   createdAt?: Date;
   
   moodValue: number;
@@ -36,6 +37,12 @@ export interface MoodEntry {
   };
   
   completado: boolean;
+}
+
+export interface AreasImpacto {
+  vidaDiaria: string[];
+  relaciones: string[];
+  desempeno: string[];
 }
 
 export const MOOD_LEVELS = [
@@ -55,14 +62,14 @@ export const CATEGORIAS_IMPACTO = {
 };
 
 // Determinar momento del día
-const obtenerMomentoDia = (): 'mañana' | 'tarde' | 'noche' => {
-  const hora = new Date().getHours();
+const obtenerMomentoDia = (fecha: Date = new Date()): 'mañana' | 'tarde' | 'noche' => {
+  const hora = fecha.getHours();
   if (hora >= 6 && hora < 12) return 'mañana';
   if (hora >= 12 && hora < 18) return 'tarde';
   return 'noche';
 };
 
-// Verificar si puede registrar mood (máximo 3 al día)
+// Verificar si puede registrar mood (máximo 7 al día)
 export const puedeRegistrarMood = async (): Promise<{ puede: boolean; registrosHoy: number; momentosPendientes: string[] }> => {
   const user = obtenerUsuarioActual();
   if (!user) throw new Error("Usuario no autenticado");
@@ -157,36 +164,46 @@ export const generarPalabrasFallback = (moodLabel: string): string[] => {
   return palabrasPorMood[moodLabel] || palabrasPorMood['Neutral'];
 };
 
-// Crear entrada de mood inicial
-export const crearMoodEntry = async (
+// Nueva función para crear entry con fecha personalizada
+export const crearMoodEntryConFecha = async (
   moodValue: number,
   moodLabel: string,
-  moodColor: string
+  moodColor: string,
+  customDate?: Date
 ): Promise<string> => {
   const user = obtenerUsuarioActual();
   if (!user) throw new Error("Usuario no autenticado");
 
   try {
-    console.log('🔧 crearMoodEntry - INICIO');
+    console.log('🔧 crearMoodEntryConFecha - INICIO');
+    console.log('   - Fecha personalizada:', customDate?.toISOString());
     
-    const { puede, registrosHoy } = await puedeRegistrarMood();
-    if (!puede) {
-      throw new Error(`Ya registraste tus 3 estados de ánimo de hoy (${registrosHoy}/3)`);
-    }
+    const fechaRegistro = customDate || new Date();
+    const diaString = fechaRegistro.toISOString().split('T')[0];
+    
+    // Determinar si es día actual
+    const hoy = new Date().toISOString().split('T')[0];
+    const esDiaActual = diaString === hoy;
+    
+    // Si es día actual, guardar hora exacta; si no, guardar "00:00"
+    const horaString = esDiaActual 
+      ? fechaRegistro.toLocaleTimeString('es-MX', { 
+          hour: '2-digit', 
+          minute: '2-digit',
+          hour12: false
+        })
+      : '00:00';
 
-    const ahora = new Date();
-    const diaString = ahora.toISOString().split('T')[0];
-    const horaString = ahora.toLocaleTimeString('es-MX', { 
-      hour: '2-digit', 
-      minute: '2-digit' 
-    });
+    // Si es día actual, guardar momento del día; si no, guardar vacío
+    const momentoDia = esDiaActual ? obtenerMomentoDia(fechaRegistro) : 'mañana'; // Por defecto mañana para mantener tipo
 
     const newEntry = {
       userId: user.uid,
-      fecha: Timestamp.now(),
+      fecha: Timestamp.fromDate(fechaRegistro),
       dia: diaString,
       hora: horaString,
-      momentoDia: obtenerMomentoDia(),
+      momentoDia: momentoDia,
+      esDiaActual: esDiaActual, // ✅ Nuevo campo para identificar si es día actual
       moodValue,
       moodLabel,
       moodColor,
@@ -200,15 +217,26 @@ export const crearMoodEntry = async (
       createdAt: serverTimestamp(),
     };
 
-    console.log('   - Creando documento en Firebase...');
+    console.log('   - Creando documento en Firebase para:', diaString);
+    console.log('   - Es día actual:', esDiaActual);
+    console.log('   - Hora:', horaString);
     const docRef = await addDoc(collection(db, "moodEntries"), newEntry);
     console.log('✅ Mood entry creada con ID:', docRef.id);
-    console.log('🔧 crearMoodEntry - FIN');
+    console.log('🔧 crearMoodEntryConFecha - FIN');
     return docRef.id;
   } catch (error) {
     console.error("❌ Error al crear mood entry:", error);
     throw error;
   }
+};
+
+// Función original mantenida para compatibilidad
+export const crearMoodEntry = async (
+  moodValue: number,
+  moodLabel: string,
+  moodColor: string
+): Promise<string> => {
+  return crearMoodEntryConFecha(moodValue, moodLabel, moodColor);
 };
 
 // Actualizar SOLO con palabras seleccionadas
@@ -227,7 +255,6 @@ export const actualizarPalabrasSeleccionadas = async (
     
     const entryRef = doc(db, "moodEntries", entryId);
     
-    // Verificar que el documento existe y pertenece al usuario
     const docSnap = await getDoc(entryRef);
     if (!docSnap.exists()) {
       throw new Error('El documento no existe');
@@ -277,7 +304,6 @@ export const actualizarAreasImpacto = async (
 
     const entryRef = doc(db, "moodEntries", entryId);
     
-    // Verificar que el documento existe y pertenece al usuario
     const docSnap = await getDoc(entryRef);
     if (!docSnap.exists()) {
       throw new Error('El documento no existe');
@@ -323,8 +349,8 @@ export const obtenerMoodEntries = async (): Promise<MoodEntry[]> => {
         userId: data.userId,
         fecha: data.fecha.toDate(),
         dia: data.dia,
-        hora: data.hora,
-        momentoDia: data.momentoDia,
+        hora: data.hora || '00:00',
+        momentoDia: data.momentoDia || 'mañana',
         moodValue: data.moodValue,
         moodLabel: data.moodLabel,
         moodColor: data.moodColor,
@@ -346,7 +372,7 @@ export const obtenerMoodEntries = async (): Promise<MoodEntry[]> => {
   }
 };
 
-// Obtener mood entries de hoy (puede haber hasta 3)
+// Obtener mood entries de hoy
 export const obtenerMoodsHoy = async (): Promise<MoodEntry[]> => {
   const user = obtenerUsuarioActual();
   if (!user) throw new Error("Usuario no autenticado");
@@ -372,8 +398,8 @@ export const obtenerMoodsHoy = async (): Promise<MoodEntry[]> => {
         userId: data.userId,
         fecha: data.fecha.toDate(),
         dia: data.dia,
-        hora: data.hora,
-        momentoDia: data.momentoDia,
+        hora: data.hora || '00:00',
+        momentoDia: data.momentoDia || 'mañana',
         moodValue: data.moodValue,
         moodLabel: data.moodLabel,
         moodColor: data.moodColor,
