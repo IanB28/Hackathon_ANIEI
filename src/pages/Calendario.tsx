@@ -1,29 +1,33 @@
 import React, { useState } from 'react';
 import { IonContent, IonPage, IonSegment, IonSegmentButton, IonLabel, IonIcon, IonCard, IonCardContent, IonButton, IonModal, IonHeader, IonToolbar } from '@ionic/react';
-import { arrowBack, arrowForward, calendarOutline, close, barChartOutline } from 'ionicons/icons';
+import { arrowBack, arrowForward, calendarOutline, close, barChartOutline, checkmarkCircle } from 'ionicons/icons';
 import './Calendario.css';
 
 interface EmotionEntry {
   date: string;
   emotion: 'bien' | 'neutral' | 'mal';
   fullDate: Date;
+  momentaryEmotions?: string[];
 }
 
 const Calendario: React.FC = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [viewMode, setViewMode] = useState<'W' | 'M' | 'P' | 'S'>('M');
   const [showChart, setShowChart] = useState(false);
+  const [showDayModal, setShowDayModal] = useState(false);
+  const [selectedDay, setSelectedDay] = useState<number | null>(null);
+  const [selectedEmotion, setSelectedEmotion] = useState<'bien' | 'neutral' | 'mal' | null>(null);
   const [entries, setEntries] = useState<EmotionEntry[]>([
-    { date: '1', emotion: 'bien', fullDate: new Date(2025, 9, 1) },
-    { date: '2', emotion: 'neutral', fullDate: new Date(2025, 9, 2) },
-    { date: '5', emotion: 'mal', fullDate: new Date(2025, 9, 5) },
-    { date: '8', emotion: 'bien', fullDate: new Date(2025, 9, 8) },
-    { date: '12', emotion: 'neutral', fullDate: new Date(2025, 9, 12) },
-    { date: '15', emotion: 'bien', fullDate: new Date(2025, 9, 15) },
-    { date: '18', emotion: 'mal', fullDate: new Date(2025, 9, 18) },
-    { date: '22', emotion: 'neutral', fullDate: new Date(2025, 9, 22) },
-    { date: '25', emotion: 'bien', fullDate: new Date(2025, 9, 25) },
-    { date: '28', emotion: 'mal', fullDate: new Date(2025, 9, 28) },
+    { date: '1', emotion: 'bien', fullDate: new Date(2025, 9, 1), momentaryEmotions: ['Feliz', 'Motivado', 'Tranquilo'] },
+    { date: '2', emotion: 'neutral', fullDate: new Date(2025, 9, 2), momentaryEmotions: ['Cansado', 'Normal'] },
+    { date: '5', emotion: 'mal', fullDate: new Date(2025, 9, 5), momentaryEmotions: ['Triste', 'Estresado', 'Ansioso'] },
+    { date: '8', emotion: 'bien', fullDate: new Date(2025, 9, 8), momentaryEmotions: ['Emocionado', 'Productivo'] },
+    { date: '12', emotion: 'neutral', fullDate: new Date(2025, 9, 12), momentaryEmotions: [] },
+    { date: '15', emotion: 'bien', fullDate: new Date(2025, 9, 15), momentaryEmotions: ['Agradecido', 'Feliz'] },
+    { date: '18', emotion: 'mal', fullDate: new Date(2025, 9, 18), momentaryEmotions: ['Frustrado'] },
+    { date: '22', emotion: 'neutral', fullDate: new Date(2025, 9, 22), momentaryEmotions: ['Confundido'] },
+    { date: '25', emotion: 'bien', fullDate: new Date(2025, 9, 25), momentaryEmotions: ['Satisfecho', 'Relajado'] },
+    { date: '28', emotion: 'mal', fullDate: new Date(2025, 9, 28), momentaryEmotions: ['Preocupado', 'Abrumado'] },
   ]);
 
   const viewModeLabels = {
@@ -44,6 +48,15 @@ const Calendario: React.FC = () => {
       case 'neutral': return '#FFC107';
       case 'mal': return '#F44336';
       default: return '#555';
+    }
+  };
+
+  const getEmotionLabel = (emotion: string) => {
+    switch(emotion) {
+      case 'bien': return 'A Good Day';
+      case 'neutral': return 'A Neutral Day';
+      case 'mal': return 'A Bad Day';
+      default: return '';
     }
   };
 
@@ -140,6 +153,22 @@ const Calendario: React.FC = () => {
            currentDate.getFullYear() === today.getFullYear();
   };
 
+  const handleDayClick = (day: number) => {
+    setSelectedDay(day);
+    const entry = getEntryForDay(day);
+    setSelectedEmotion(entry?.emotion || null);
+    setShowDayModal(true);
+  };
+
+  const getSelectedDate = () => {
+    if (!selectedDay) return '';
+    const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), selectedDay);
+    const dayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    const dayName = dayNames[date.getDay()];
+    const monthAbbr = monthNames[currentDate.getMonth()].substring(0, 3);
+    return `${dayName}, ${selectedDay} ${monthAbbr}`;
+  };
+
   const renderChart = () => {
     const filteredEntries = getFilteredEntries();
     const chartHeight = 350;
@@ -208,6 +237,32 @@ const Calendario: React.FC = () => {
           );
         })}
       </svg>
+    );
+  };
+
+  const renderEmotionCircle = () => {
+    if (!selectedEmotion) return null;
+
+    return (
+      <div className="emotion-circle-container">
+        <svg viewBox="0 0 200 200" className="emotion-circle-svg">
+          {/* Círculos concéntricos */}
+          <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(255, 255, 255, 0.1)" strokeWidth="1" />
+          <circle cx="100" cy="100" r="70" fill="none" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="1" />
+          <circle cx="100" cy="100" r="50" fill="none" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="1" />
+          
+          {/* Círculo central con gradiente */}
+          <defs>
+            <radialGradient id="emotionGradient">
+              <stop offset="0%" stopColor={getEmotionColor(selectedEmotion)} stopOpacity="0.8" />
+              <stop offset="50%" stopColor={getEmotionColor(selectedEmotion)} stopOpacity="0.5" />
+              <stop offset="100%" stopColor={getEmotionColor(selectedEmotion)} stopOpacity="0.2" />
+            </radialGradient>
+          </defs>
+          <circle cx="100" cy="100" r="40" fill="url(#emotionGradient)" />
+          <circle cx="100" cy="100" r="15" fill={getEmotionColor(selectedEmotion)} />
+        </svg>
+      </div>
     );
   };
 
@@ -295,6 +350,7 @@ const Calendario: React.FC = () => {
                         backgroundColor: entry ? getEmotionColor(entry.emotion) : 'rgba(58, 63, 68, 0.3)',
                         border: today ? '3px solid #00A8FC' : 'none'
                       }}
+                      onClick={() => handleDayClick(dayObj.day)}
                     >
                     </div>
                   </div>
@@ -320,11 +376,93 @@ const Calendario: React.FC = () => {
         </IonCard>
 
         <div className="bottom-actions">
-          <IonButton expand="block" className="register-button">
+          <IonButton expand="block" className="register-button" onClick={() => {
+            const today = new Date().getDate();
+            handleDayClick(today);
+          }}>
             📅 Registrar Día
           </IonButton>
         </div>
 
+        {/* Modal de Día Seleccionado */}
+        <IonModal isOpen={showDayModal} onDidDismiss={() => setShowDayModal(false)} className="day-modal">
+          <IonHeader>
+            <IonToolbar>
+              <IonButton 
+                slot="end" 
+                fill="clear" 
+                onClick={() => setShowDayModal(false)}
+                className="day-modal-close-button"
+              >
+                <IonIcon slot="icon-only" icon={close} />
+              </IonButton>
+            </IonToolbar>
+          </IonHeader>
+          <IonContent className="day-modal-content">
+            <div className="day-modal-title-main">
+              Calendario Emocional
+            </div>
+
+            <div className="day-modal-info-card">
+              <h3>Registro Diario</h3>
+              <p>{getSelectedDate()}</p>
+            </div>
+
+            <div className="day-modal-emotion-container">
+              {renderEmotionCircle()}
+
+              {selectedEmotion && (
+                <div className="day-modal-emotion-label">
+                  {getEmotionLabel(selectedEmotion)}
+                </div>
+              )}
+            </div>
+
+            <div className="momentary-emotions-section">
+              <div className="momentary-emotions-title">MOMENTARY EMOTIONS</div>
+              <div className="momentary-emotions-list">
+                {getEntryForDay(selectedDay!)?.momentaryEmotions && 
+                 getEntryForDay(selectedDay!)!.momentaryEmotions!.length > 0 ? (
+                  getEntryForDay(selectedDay!)!.momentaryEmotions!.map((emotion, index) => (
+                    <div key={index} className="momentary-emotion-chip">
+                      {emotion}
+                    </div>
+                  ))
+                ) : (
+                  <div className="no-entries-text">No Entries</div>
+                )}
+              </div>
+            </div>
+
+            <div className="day-modal-description-IA"> 
+              {selectedEmotion === 'bien' && (
+                <div className="day-modal-stat-item">
+                </div>
+              )}
+              {selectedEmotion === 'neutral' && (
+                <div className="day-modal-stat-item">
+                  <div className="day-modal-stat-icon" style={{ backgroundColor: '#FFC107' }}>😐</div>
+                  <div className="day-modal-stat-info">
+                    <div className="day-modal-stat-value">1</div>
+                    <div className="day-modal-stat-label">Día te sentiste neutral</div>
+                  </div>
+                </div>
+              )}
+              {selectedEmotion === 'mal' && (
+                <div className="day-modal-stat-item">
+                  <div className="day-modal-stat-icon" style={{ backgroundColor: '#F44336' }}>😢</div>
+                  <div className="day-modal-stat-info">
+                    <div className="day-modal-stat-value">1</div>
+                    <div className="day-modal-stat-label">Día te sentiste mal</div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+          </IonContent>
+        </IonModal>
+
+        {/* Modal de Gráfica */}
         <IonModal isOpen={showChart} onDidDismiss={() => setShowChart(false)} className="chart-modal">
           <IonHeader>
             <IonToolbar>

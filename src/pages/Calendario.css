@@ -382,3 +382,212 @@
   margin: 0;
   font-weight: 500;
 }
+
+/* Day Modal Styles - Matching Chart Modal Design */
+.day-modal {
+  --background: transparent;
+  --height: 100%;
+  --width: 100%;
+}
+
+.day-modal ion-toolbar {
+  --background: transparent;
+  --color: #fff;
+  --border-color: transparent;
+}
+
+.day-modal-close-button {
+  --color: #fff;
+  --background: rgba(255, 255, 255, 0.1);
+  --border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.day-modal-content {
+  --background: linear-gradient(180deg, #161F31 0%, #304970 50%, #354A6D 100%);
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 20px;
+  padding-bottom: 100px;
+}
+
+.day-modal-title-main {
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: bold;
+  text-align: left;
+  padding: 20px 0 15px 0;
+  margin: 0;
+}
+
+.day-modal-info-card {
+  text-align: center;
+  color: #fff;
+  margin: 10px 0 15px;
+  padding: 20px 15px;
+  background: rgba(48, 73, 112, 0.3);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.day-modal-info-card h3 {
+  font-size: 20px;
+  margin: 0 0 8px 0;
+  color: #fff;
+  font-weight: 600;
+}
+
+.day-modal-info-card p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  margin: 0;
+}
+
+.day-modal-emotion-container {
+  background: rgba(48, 73, 112, 0.3);
+  border-radius: 16px;
+  padding: 30px 10px;
+  margin: 15px 0;
+  min-height: 400px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.emotion-circle-container {
+  width: 280px;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.emotion-circle-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.3));
+}
+
+.day-modal-emotion-label {
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: 600;
+  margin: 30px 0 0;
+  text-align: center;
+}
+
+.day-modal-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 15px;
+  padding-bottom: 20px;
+}
+
+.day-modal-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(48, 73, 112, 0.3);
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.day-modal-stat-icon {
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.day-modal-stat-info {
+  flex: 1;
+}
+
+.day-modal-stat-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  margin: 0 0 4px 0;
+}
+
+.day-modal-stat-label {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  font-weight: 500;
+}
+
+.momentary-emotions-section {
+  margin: 20px 0;
+  padding: 20px;
+  background: rgba(48, 73, 112, 0.3);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.momentary-emotions-title {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.momentary-emotions-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-height: 50px;
+  align-items: flex-start;
+}
+
+.momentary-emotion-chip {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.no-entries-text {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  font-style: italic;
+  width: 100%;
+  text-align: left;
+}
+
+.day-modal-log-button {
+  --background: rgba(76, 175, 80, 0.5);
+  --background-hover: rgba(69, 160, 73, 0.7);
+  --border-radius: 12px;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  font-weight: 600;
+  height: 50px;
+  color: #fff;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 20px;
+  font-size: 16px;
+}

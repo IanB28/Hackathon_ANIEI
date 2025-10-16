@@ -29,9 +29,9 @@ ion-content {
 ion-tab-bar {
   position: sticky;
   bottom: 20px;
-  left: 3px;    /* Esta pinche linea se debe de cambiar dependiendo del tamaño de la pantalla del fono hasta que se pruebe en alguna */
-  right: 26px;
-  width: calc(100% - 32px);
+  left: 15px;    /* Esta pinche linea se debe de cambiar dependiendo del tamaño de la pantalla del fono hasta que se pruebe en alguna */
+  right: 15px;
+  width: calc(100% - 30px);
   height: 55px;
   border-radius: 25px;
   background: rgba(48, 73, 112, 0.8);
